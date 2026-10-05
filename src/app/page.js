@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ResetDemoButton from "@/components/ResetDemoButton";
 
 const roles = [
   {
@@ -76,7 +77,10 @@ export default function Home() {
         ))}
       </div>
 
-      <p className="text-sm text-stone-500">Demo mode — no account, no real data, nothing saved beyond this browser.</p>
+      <div className="flex flex-col items-center gap-3">
+        <p className="text-sm text-stone-400">Demo mode — no account, no real data, nothing saved beyond this browser.</p>
+        <ResetDemoButton />
+      </div>
     </main>
   );
 }

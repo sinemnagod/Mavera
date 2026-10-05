@@ -1,0 +1,335 @@
+[
+  {
+    "id": "hummus",
+    "name": "Humus",
+    "category": "Starters",
+    "price": 145,
+    "station": "cold",
+    "allergens": [
+      "sesame"
+    ],
+    "prepMinutes": 4
+  },
+  {
+    "id": "haydari",
+    "name": "Haydari",
+    "category": "Starters",
+    "price": 135,
+    "station": "cold",
+    "allergens": [
+      "dairy"
+    ],
+    "prepMinutes": 4
+  },
+  {
+    "id": "acili-ezme",
+    "name": "Acılı Ezme",
+    "category": "Starters",
+    "price": 120,
+    "station": "cold",
+    "allergens": [],
+    "prepMinutes": 4
+  },
+  {
+    "id": "patlican-salata",
+    "name": "Közlenmiş Patlıcan Salatası",
+    "category": "Starters",
+    "price": 150,
+    "station": "cold",
+    "allergens": [],
+    "prepMinutes": 5
+  },
+  {
+    "id": "yaprak-sarma",
+    "name": "Zeytinyağlı Yaprak Sarma",
+    "category": "Starters",
+    "price": 160,
+    "station": "cold",
+    "allergens": [],
+    "prepMinutes": 5
+  },
+  {
+    "id": "sigara-boregi",
+    "name": "Sigara Böreği",
+    "category": "Starters",
+    "price": 165,
+    "station": "grill",
+    "allergens": [
+      "gluten",
+      "dairy"
+    ],
+    "prepMinutes": 9
+  },
+  {
+    "id": "kalamar",
+    "name": "Kalamar Tava",
+    "category": "Starters",
+    "price": 285,
+    "station": "grill",
+    "allergens": [
+      "gluten",
+      "shellfish"
+    ],
+    "prepMinutes": 12
+  },
+  {
+    "id": "mercimek",
+    "name": "Mercimek Çorbası",
+    "category": "Starters",
+    "price": 110,
+    "station": "grill",
+    "allergens": [],
+    "prepMinutes": 5
+  },
+  {
+    "id": "coban-salata",
+    "name": "Çoban Salatası",
+    "category": "Salads",
+    "price": 125,
+    "station": "cold",
+    "allergens": [],
+    "prepMinutes": 5
+  },
+  {
+    "id": "gavurdagi",
+    "name": "Gavurdağı Salatası",
+    "category": "Salads",
+    "price": 155,
+    "station": "cold",
+    "allergens": [
+      "nuts"
+    ],
+    "prepMinutes": 6
+  },
+  {
+    "id": "roka-peynir",
+    "name": "Roka Peynir Salatası",
+    "category": "Salads",
+    "price": 170,
+    "station": "cold",
+    "allergens": [
+      "dairy"
+    ],
+    "prepMinutes": 5
+  },
+  {
+    "id": "adana",
+    "name": "Adana Kebap",
+    "category": "Mains",
+    "price": 395,
+    "station": "grill",
+    "allergens": [],
+    "prepMinutes": 16
+  },
+  {
+    "id": "urfa",
+    "name": "Urfa Kebap",
+    "category": "Mains",
+    "price": 395,
+    "station": "grill",
+    "allergens": [],
+    "prepMinutes": 16
+  },
+  {
+    "id": "kuzu-sis",
+    "name": "Kuzu Şiş",
+    "category": "Mains",
+    "price": 485,
+    "station": "grill",
+    "allergens": [],
+    "prepMinutes": 18
+  },
+  {
+    "id": "kuzu-tandir",
+    "name": "Kuzu Tandır",
+    "category": "Mains",
+    "price": 545,
+    "station": "grill",
+    "allergens": [],
+    "prepMinutes": 20
+  },
+  {
+    "id": "tavuk-sis",
+    "name": "Tavuk Şiş",
+    "category": "Mains",
+    "price": 340,
+    "station": "grill",
+    "allergens": [],
+    "prepMinutes": 15
+  },
+  {
+    "id": "kofte",
+    "name": "Izgara Köfte",
+    "category": "Mains",
+    "price": 355,
+    "station": "grill",
+    "allergens": [
+      "gluten",
+      "egg"
+    ],
+    "prepMinutes": 15
+  },
+  {
+    "id": "iskender",
+    "name": "İskender",
+    "category": "Mains",
+    "price": 425,
+    "station": "grill",
+    "allergens": [
+      "gluten",
+      "dairy"
+    ],
+    "prepMinutes": 17
+  },
+  {
+    "id": "levrek",
+    "name": "Izgara Levrek",
+    "category": "Mains",
+    "price": 465,
+    "station": "grill",
+    "allergens": [
+      "fish"
+    ],
+    "prepMinutes": 18
+  },
+  {
+    "id": "karisik-izgara",
+    "name": "Karışık Izgara",
+    "category": "Mains",
+    "price": 620,
+    "station": "grill",
+    "allergens": [],
+    "prepMinutes": 22
+  },
+  {
+    "id": "manti",
+    "name": "Mantı",
+    "category": "Mains",
+    "price": 255,
+    "station": "grill",
+    "allergens": [
+      "gluten",
+      "dairy",
+      "egg"
+    ],
+    "prepMinutes": 14
+  },
+  {
+    "id": "pide",
+    "name": "Kaşarlı Pide",
+    "category": "Mains",
+    "price": 245,
+    "station": "grill",
+    "allergens": [
+      "gluten",
+      "dairy",
+      "egg"
+    ],
+    "prepMinutes": 13
+  },
+  {
+    "id": "pilav",
+    "name": "Bulgur Pilavı",
+    "category": "Sides",
+    "price": 85,
+    "station": "grill",
+    "allergens": [
+      "gluten"
+    ],
+    "prepMinutes": 4
+  },
+  {
+    "id": "patates",
+    "name": "Patates Kızartması",
+    "category": "Sides",
+    "price": 95,
+    "station": "grill",
+    "allergens": [],
+    "prepMinutes": 7
+  },
+  {
+    "id": "baklava",
+    "name": "Fıstıklı Baklava",
+    "category": "Desserts",
+    "price": 195,
+    "station": "dessert",
+    "allergens": [
+      "gluten",
+      "nuts"
+    ],
+    "prepMinutes": 3
+  },
+  {
+    "id": "kunefe",
+    "name": "Künefe",
+    "category": "Desserts",
+    "price": 225,
+    "station": "dessert",
+    "allergens": [
+      "gluten",
+      "dairy",
+      "nuts"
+    ],
+    "prepMinutes": 11
+  },
+  {
+    "id": "sutlac",
+    "name": "Fırın Sütlaç",
+    "category": "Desserts",
+    "price": 150,
+    "station": "dessert",
+    "allergens": [
+      "dairy"
+    ],
+    "prepMinutes": 3
+  },
+  {
+    "id": "kazandibi",
+    "name": "Kazandibi",
+    "category": "Desserts",
+    "price": 155,
+    "station": "dessert",
+    "allergens": [
+      "dairy"
+    ],
+    "prepMinutes": 3
+  },
+  {
+    "id": "cay",
+    "name": "Çay",
+    "category": "Drinks",
+    "price": 40,
+    "station": "cold",
+    "allergens": [],
+    "prepMinutes": 2
+  },
+  {
+    "id": "turk-kahvesi",
+    "name": "Türk Kahvesi",
+    "category": "Drinks",
+    "price": 85,
+    "station": "cold",
+    "allergens": [],
+    "prepMinutes": 5
+  },
+  {
+    "id": "ayran",
+    "name": "Ayran",
+    "category": "Drinks",
+    "price": 60,
+    "station": "cold",
+    "allergens": [
+      "dairy"
+    ],
+    "prepMinutes": 1
+  },
+  {
+    "id": "limonata",
+    "name": "Ev Yapımı Limonata",
+    "category": "Drinks",
+    "price": 95,
+    "station": "cold",
+    "allergens": [],
+    "prepMinutes": 2
+  }
+]

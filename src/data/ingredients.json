@@ -1,0 +1,178 @@
+[
+  {
+    "id": "lamb",
+    "name": "Lamb",
+    "unit": "kg",
+    "costPerUnit": 620,
+    "parLevel": 50,
+    "reorderPoint": 22.5
+  },
+  {
+    "id": "beef-mince",
+    "name": "Beef mince",
+    "unit": "kg",
+    "costPerUnit": 430,
+    "parLevel": 25,
+    "reorderPoint": 11.3
+  },
+  {
+    "id": "chicken",
+    "name": "Chicken",
+    "unit": "kg",
+    "costPerUnit": 190,
+    "parLevel": 18,
+    "reorderPoint": 8.1
+  },
+  {
+    "id": "sea-bass",
+    "name": "Sea bass",
+    "unit": "kg",
+    "costPerUnit": 520,
+    "parLevel": 8,
+    "reorderPoint": 3.6
+  },
+  {
+    "id": "squid",
+    "name": "Squid",
+    "unit": "kg",
+    "costPerUnit": 380,
+    "parLevel": 8,
+    "reorderPoint": 3.6
+  },
+  {
+    "id": "yogurt",
+    "name": "Yogurt",
+    "unit": "kg",
+    "costPerUnit": 70,
+    "parLevel": 20,
+    "reorderPoint": 9
+  },
+  {
+    "id": "white-cheese",
+    "name": "White cheese",
+    "unit": "kg",
+    "costPerUnit": 220,
+    "parLevel": 7,
+    "reorderPoint": 3.2
+  },
+  {
+    "id": "kashar",
+    "name": "Kaşar cheese",
+    "unit": "kg",
+    "costPerUnit": 310,
+    "parLevel": 8,
+    "reorderPoint": 3.6
+  },
+  {
+    "id": "flour",
+    "name": "Flour",
+    "unit": "kg",
+    "costPerUnit": 22,
+    "parLevel": 20,
+    "reorderPoint": 9
+  },
+  {
+    "id": "bulgur",
+    "name": "Bulgur",
+    "unit": "kg",
+    "costPerUnit": 38,
+    "parLevel": 6,
+    "reorderPoint": 2.7
+  },
+  {
+    "id": "rice",
+    "name": "Rice",
+    "unit": "kg",
+    "costPerUnit": 55,
+    "parLevel": 3,
+    "reorderPoint": 1.4
+  },
+  {
+    "id": "chickpeas",
+    "name": "Chickpeas",
+    "unit": "kg",
+    "costPerUnit": 60,
+    "parLevel": 4,
+    "reorderPoint": 1.8
+  },
+  {
+    "id": "eggplant",
+    "name": "Eggplant",
+    "unit": "kg",
+    "costPerUnit": 35,
+    "parLevel": 7,
+    "reorderPoint": 3.2
+  },
+  {
+    "id": "tomato",
+    "name": "Tomato",
+    "unit": "kg",
+    "costPerUnit": 40,
+    "parLevel": 60,
+    "reorderPoint": 27
+  },
+  {
+    "id": "potato",
+    "name": "Potato",
+    "unit": "kg",
+    "costPerUnit": 20,
+    "parLevel": 11,
+    "reorderPoint": 5
+  },
+  {
+    "id": "rocket",
+    "name": "Rocket",
+    "unit": "kg",
+    "costPerUnit": 90,
+    "parLevel": 3,
+    "reorderPoint": 1.4
+  },
+  {
+    "id": "pistachio",
+    "name": "Pistachio",
+    "unit": "kg",
+    "costPerUnit": 1100,
+    "parLevel": 2,
+    "reorderPoint": 0.9
+  },
+  {
+    "id": "kadayif",
+    "name": "Kadayıf",
+    "unit": "kg",
+    "costPerUnit": 120,
+    "parLevel": 4.5,
+    "reorderPoint": 2
+  },
+  {
+    "id": "milk",
+    "name": "Milk",
+    "unit": "L",
+    "costPerUnit": 38,
+    "parLevel": 10,
+    "reorderPoint": 4.5
+  },
+  {
+    "id": "butter",
+    "name": "Butter",
+    "unit": "kg",
+    "costPerUnit": 360,
+    "parLevel": 7,
+    "reorderPoint": 3.2
+  },
+  {
+    "id": "olive-oil",
+    "name": "Olive oil",
+    "unit": "L",
+    "costPerUnit": 280,
+    "parLevel": 9,
+    "reorderPoint": 4.1
+  },
+  {
+    "id": "tahini",
+    "name": "Tahini",
+    "unit": "kg",
+    "costPerUnit": 240,
+    "parLevel": 1.5,
+    "reorderPoint": 0.7
+  }
+]

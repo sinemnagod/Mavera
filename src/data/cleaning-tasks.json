@@ -1,0 +1,170 @@
+[
+  {
+    "id": "main-1030",
+    "area": "Main",
+    "description": "Wipe and reset all tables",
+    "dueTime": "10:30",
+    "frequency": "daily"
+  },
+  {
+    "id": "main-1430",
+    "area": "Main",
+    "description": "Sweep and spot-mop floor",
+    "dueTime": "14:30",
+    "frequency": "daily"
+  },
+  {
+    "id": "main-1730",
+    "area": "Main",
+    "description": "Restock napkins, condiments and menus",
+    "dueTime": "17:30",
+    "frequency": "daily"
+  },
+  {
+    "id": "main-2330",
+    "area": "Main",
+    "description": "Deep mop and chairs up",
+    "dueTime": "23:30",
+    "frequency": "daily"
+  },
+  {
+    "id": "terrace-1030",
+    "area": "Terrace",
+    "description": "Wipe tables and cushions",
+    "dueTime": "10:30",
+    "frequency": "daily"
+  },
+  {
+    "id": "terrace-1500",
+    "area": "Terrace",
+    "description": "Sweep and empty ashtrays",
+    "dueTime": "15:00",
+    "frequency": "daily"
+  },
+  {
+    "id": "terrace-2330",
+    "area": "Terrace",
+    "description": "Stack chairs and secure umbrellas",
+    "dueTime": "23:30",
+    "frequency": "daily"
+  },
+  {
+    "id": "family-1030",
+    "area": "Family",
+    "description": "Wipe tables and high chairs",
+    "dueTime": "10:30",
+    "frequency": "daily"
+  },
+  {
+    "id": "family-1500",
+    "area": "Family",
+    "description": "Sanitise play corner",
+    "dueTime": "15:00",
+    "frequency": "daily"
+  },
+  {
+    "id": "family-2330",
+    "area": "Family",
+    "description": "Sweep and mop floor",
+    "dueTime": "23:30",
+    "frequency": "daily"
+  },
+  {
+    "id": "kitchen-1000",
+    "area": "Kitchen",
+    "description": "Sanitise prep surfaces",
+    "dueTime": "10:00",
+    "frequency": "daily"
+  },
+  {
+    "id": "kitchen-1600",
+    "area": "Kitchen",
+    "description": "Clean grill and extractor filters",
+    "dueTime": "16:00",
+    "frequency": "daily"
+  },
+  {
+    "id": "kitchen-2100",
+    "area": "Kitchen",
+    "description": "Empty and wash bins",
+    "dueTime": "21:00",
+    "frequency": "daily"
+  },
+  {
+    "id": "kitchen-2345",
+    "area": "Kitchen",
+    "description": "Degrease floor and drains",
+    "dueTime": "23:45",
+    "frequency": "daily"
+  },
+  {
+    "id": "kitchen-1300",
+    "area": "Kitchen",
+    "description": "Wipe down fridge handles and seals",
+    "dueTime": "13:00",
+    "frequency": "daily"
+  },
+  {
+    "id": "restrooms-1100",
+    "area": "Restrooms",
+    "description": "Clean and restock — morning",
+    "dueTime": "11:00",
+    "frequency": "daily"
+  },
+  {
+    "id": "restrooms-1530",
+    "area": "Restrooms",
+    "description": "Clean and restock — afternoon",
+    "dueTime": "15:30",
+    "frequency": "daily"
+  },
+  {
+    "id": "restrooms-1930",
+    "area": "Restrooms",
+    "description": "Clean and restock — evening",
+    "dueTime": "19:30",
+    "frequency": "daily"
+  },
+  {
+    "id": "restrooms-2315",
+    "area": "Restrooms",
+    "description": "Final clean and mop",
+    "dueTime": "23:15",
+    "frequency": "daily"
+  },
+  {
+    "id": "storage-1200",
+    "area": "Storage",
+    "description": "Sweep and check for pests",
+    "dueTime": "12:00",
+    "frequency": "daily"
+  },
+  {
+    "id": "storage-2200",
+    "area": "Storage",
+    "description": "Break down cardboard and take out recycling",
+    "dueTime": "22:00",
+    "frequency": "daily"
+  },
+  {
+    "id": "entrance-1000",
+    "area": "Entrance",
+    "description": "Sweep and wipe glass doors",
+    "dueTime": "10:00",
+    "frequency": "daily"
+  },
+  {
+    "id": "entrance-1630",
+    "area": "Entrance",
+    "description": "Wipe host stand and menus",
+    "dueTime": "16:30",
+    "frequency": "daily"
+  },
+  {
+    "id": "entrance-2300",
+    "area": "Entrance",
+    "description": "Mop entrance mat area",
+    "dueTime": "23:00",
+    "frequency": "daily"
+  }
+]

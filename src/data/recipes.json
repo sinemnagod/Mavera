@@ -1,0 +1,382 @@
+[
+  {
+    "menuItemId": "hummus",
+    "ingredientId": "chickpeas",
+    "quantity": 0.08
+  },
+  {
+    "menuItemId": "hummus",
+    "ingredientId": "tahini",
+    "quantity": 0.03
+  },
+  {
+    "menuItemId": "hummus",
+    "ingredientId": "olive-oil",
+    "quantity": 0.01
+  },
+  {
+    "menuItemId": "haydari",
+    "ingredientId": "yogurt",
+    "quantity": 0.12
+  },
+  {
+    "menuItemId": "haydari",
+    "ingredientId": "white-cheese",
+    "quantity": 0.03
+  },
+  {
+    "menuItemId": "acili-ezme",
+    "ingredientId": "tomato",
+    "quantity": 0.15
+  },
+  {
+    "menuItemId": "acili-ezme",
+    "ingredientId": "olive-oil",
+    "quantity": 0.01
+  },
+  {
+    "menuItemId": "patlican-salata",
+    "ingredientId": "eggplant",
+    "quantity": 0.2
+  },
+  {
+    "menuItemId": "patlican-salata",
+    "ingredientId": "olive-oil",
+    "quantity": 0.015
+  },
+  {
+    "menuItemId": "patlican-salata",
+    "ingredientId": "yogurt",
+    "quantity": 0.03
+  },
+  {
+    "menuItemId": "yaprak-sarma",
+    "ingredientId": "rice",
+    "quantity": 0.06
+  },
+  {
+    "menuItemId": "yaprak-sarma",
+    "ingredientId": "olive-oil",
+    "quantity": 0.02
+  },
+  {
+    "menuItemId": "sigara-boregi",
+    "ingredientId": "flour",
+    "quantity": 0.05
+  },
+  {
+    "menuItemId": "sigara-boregi",
+    "ingredientId": "white-cheese",
+    "quantity": 0.06
+  },
+  {
+    "menuItemId": "sigara-boregi",
+    "ingredientId": "butter",
+    "quantity": 0.01
+  },
+  {
+    "menuItemId": "kalamar",
+    "ingredientId": "squid",
+    "quantity": 0.2
+  },
+  {
+    "menuItemId": "kalamar",
+    "ingredientId": "flour",
+    "quantity": 0.04
+  },
+  {
+    "menuItemId": "kalamar",
+    "ingredientId": "olive-oil",
+    "quantity": 0.05
+  },
+  {
+    "menuItemId": "mercimek",
+    "ingredientId": "butter",
+    "quantity": 0.01
+  },
+  {
+    "menuItemId": "mercimek",
+    "ingredientId": "olive-oil",
+    "quantity": 0.005
+  },
+  {
+    "menuItemId": "coban-salata",
+    "ingredientId": "tomato",
+    "quantity": 0.2
+  },
+  {
+    "menuItemId": "coban-salata",
+    "ingredientId": "olive-oil",
+    "quantity": 0.01
+  },
+  {
+    "menuItemId": "gavurdagi",
+    "ingredientId": "tomato",
+    "quantity": 0.18
+  },
+  {
+    "menuItemId": "gavurdagi",
+    "ingredientId": "olive-oil",
+    "quantity": 0.015
+  },
+  {
+    "menuItemId": "roka-peynir",
+    "ingredientId": "rocket",
+    "quantity": 0.08
+  },
+  {
+    "menuItemId": "roka-peynir",
+    "ingredientId": "white-cheese",
+    "quantity": 0.07
+  },
+  {
+    "menuItemId": "roka-peynir",
+    "ingredientId": "olive-oil",
+    "quantity": 0.01
+  },
+  {
+    "menuItemId": "adana",
+    "ingredientId": "lamb",
+    "quantity": 0.18
+  },
+  {
+    "menuItemId": "adana",
+    "ingredientId": "tomato",
+    "quantity": 0.1
+  },
+  {
+    "menuItemId": "urfa",
+    "ingredientId": "lamb",
+    "quantity": 0.18
+  },
+  {
+    "menuItemId": "urfa",
+    "ingredientId": "tomato",
+    "quantity": 0.08
+  },
+  {
+    "menuItemId": "kuzu-sis",
+    "ingredientId": "lamb",
+    "quantity": 0.25
+  },
+  {
+    "menuItemId": "kuzu-sis",
+    "ingredientId": "tomato",
+    "quantity": 0.1
+  },
+  {
+    "menuItemId": "kuzu-tandir",
+    "ingredientId": "lamb",
+    "quantity": 0.4
+  },
+  {
+    "menuItemId": "kuzu-tandir",
+    "ingredientId": "bulgur",
+    "quantity": 0.08
+  },
+  {
+    "menuItemId": "kuzu-tandir",
+    "ingredientId": "butter",
+    "quantity": 0.01
+  },
+  {
+    "menuItemId": "tavuk-sis",
+    "ingredientId": "chicken",
+    "quantity": 0.25
+  },
+  {
+    "menuItemId": "tavuk-sis",
+    "ingredientId": "tomato",
+    "quantity": 0.1
+  },
+  {
+    "menuItemId": "kofte",
+    "ingredientId": "beef-mince",
+    "quantity": 0.2
+  },
+  {
+    "menuItemId": "kofte",
+    "ingredientId": "flour",
+    "quantity": 0.01
+  },
+  {
+    "menuItemId": "kofte",
+    "ingredientId": "tomato",
+    "quantity": 0.1
+  },
+  {
+    "menuItemId": "iskender",
+    "ingredientId": "beef-mince",
+    "quantity": 0.15
+  },
+  {
+    "menuItemId": "iskender",
+    "ingredientId": "yogurt",
+    "quantity": 0.08
+  },
+  {
+    "menuItemId": "iskender",
+    "ingredientId": "butter",
+    "quantity": 0.03
+  },
+  {
+    "menuItemId": "iskender",
+    "ingredientId": "tomato",
+    "quantity": 0.1
+  },
+  {
+    "menuItemId": "iskender",
+    "ingredientId": "flour",
+    "quantity": 0.06
+  },
+  {
+    "menuItemId": "levrek",
+    "ingredientId": "sea-bass",
+    "quantity": 0.3
+  },
+  {
+    "menuItemId": "levrek",
+    "ingredientId": "olive-oil",
+    "quantity": 0.02
+  },
+  {
+    "menuItemId": "levrek",
+    "ingredientId": "rocket",
+    "quantity": 0.03
+  },
+  {
+    "menuItemId": "karisik-izgara",
+    "ingredientId": "lamb",
+    "quantity": 0.2
+  },
+  {
+    "menuItemId": "karisik-izgara",
+    "ingredientId": "chicken",
+    "quantity": 0.1
+  },
+  {
+    "menuItemId": "karisik-izgara",
+    "ingredientId": "beef-mince",
+    "quantity": 0.1
+  },
+  {
+    "menuItemId": "karisik-izgara",
+    "ingredientId": "tomato",
+    "quantity": 0.1
+  },
+  {
+    "menuItemId": "manti",
+    "ingredientId": "flour",
+    "quantity": 0.1
+  },
+  {
+    "menuItemId": "manti",
+    "ingredientId": "beef-mince",
+    "quantity": 0.06
+  },
+  {
+    "menuItemId": "manti",
+    "ingredientId": "yogurt",
+    "quantity": 0.1
+  },
+  {
+    "menuItemId": "manti",
+    "ingredientId": "butter",
+    "quantity": 0.02
+  },
+  {
+    "menuItemId": "pide",
+    "ingredientId": "flour",
+    "quantity": 0.15
+  },
+  {
+    "menuItemId": "pide",
+    "ingredientId": "kashar",
+    "quantity": 0.1
+  },
+  {
+    "menuItemId": "pide",
+    "ingredientId": "butter",
+    "quantity": 0.01
+  },
+  {
+    "menuItemId": "pilav",
+    "ingredientId": "bulgur",
+    "quantity": 0.08
+  },
+  {
+    "menuItemId": "pilav",
+    "ingredientId": "butter",
+    "quantity": 0.01
+  },
+  {
+    "menuItemId": "patates",
+    "ingredientId": "potato",
+    "quantity": 0.25
+  },
+  {
+    "menuItemId": "patates",
+    "ingredientId": "olive-oil",
+    "quantity": 0.05
+  },
+  {
+    "menuItemId": "baklava",
+    "ingredientId": "flour",
+    "quantity": 0.05
+  },
+  {
+    "menuItemId": "baklava",
+    "ingredientId": "pistachio",
+    "quantity": 0.03
+  },
+  {
+    "menuItemId": "baklava",
+    "ingredientId": "butter",
+    "quantity": 0.04
+  },
+  {
+    "menuItemId": "kunefe",
+    "ingredientId": "kadayif",
+    "quantity": 0.1
+  },
+  {
+    "menuItemId": "kunefe",
+    "ingredientId": "kashar",
+    "quantity": 0.08
+  },
+  {
+    "menuItemId": "kunefe",
+    "ingredientId": "pistachio",
+    "quantity": 0.02
+  },
+  {
+    "menuItemId": "kunefe",
+    "ingredientId": "butter",
+    "quantity": 0.03
+  },
+  {
+    "menuItemId": "sutlac",
+    "ingredientId": "milk",
+    "quantity": 0.2
+  },
+  {
+    "menuItemId": "sutlac",
+    "ingredientId": "rice",
+    "quantity": 0.03
+  },
+  {
+    "menuItemId": "kazandibi",
+    "ingredientId": "milk",
+    "quantity": 0.25
+  },
+  {
+    "menuItemId": "kazandibi",
+    "ingredientId": "flour",
+    "quantity": 0.02
+  },
+  {
+    "menuItemId": "ayran",
+    "ingredientId": "yogurt",
+    "quantity": 0.1
+  }
+]

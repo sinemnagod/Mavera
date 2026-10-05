@@ -1,7 +1,772 @@
 [
-  { "id": "kadikoy", "name": "Kadıköy" },
-  { "id": "nisantasi", "name": "Nişantaşı" },
-  { "id": "bebek", "name": "Bebek" },
-  { "id": "besiktas", "name": "Beşiktaş" },
-  { "id": "uskudar", "name": "Üsküdar" }
+  {
+    "id": "kadikoy",
+    "name": "Kadıköy",
+    "staff": {
+      "waiter": "Deniz Aksoy",
+      "expo": "Murat Özkan",
+      "cleaner": "Ayşe Demir",
+      "storeManager": "Elif Kaya"
+    },
+    "sections": [
+      {
+        "id": "main",
+        "label": "Main"
+      },
+      {
+        "id": "terrace",
+        "label": "Terrace"
+      },
+      {
+        "id": "family",
+        "label": "Family"
+      }
+    ],
+    "tables": [
+      {
+        "id": "M1",
+        "section": "main",
+        "seats": 2
+      },
+      {
+        "id": "M2",
+        "section": "main",
+        "seats": 2
+      },
+      {
+        "id": "M3",
+        "section": "main",
+        "seats": 4
+      },
+      {
+        "id": "M4",
+        "section": "main",
+        "seats": 4
+      },
+      {
+        "id": "M5",
+        "section": "main",
+        "seats": 2
+      },
+      {
+        "id": "M6",
+        "section": "main",
+        "seats": 4
+      },
+      {
+        "id": "M7",
+        "section": "main",
+        "seats": 6
+      },
+      {
+        "id": "M8",
+        "section": "main",
+        "seats": 4
+      },
+      {
+        "id": "M9",
+        "section": "main",
+        "seats": 2
+      },
+      {
+        "id": "M10",
+        "section": "main",
+        "seats": 2
+      },
+      {
+        "id": "M11",
+        "section": "main",
+        "seats": 4
+      },
+      {
+        "id": "M12",
+        "section": "main",
+        "seats": 4
+      },
+      {
+        "id": "T1",
+        "section": "terrace",
+        "seats": 2
+      },
+      {
+        "id": "T2",
+        "section": "terrace",
+        "seats": 4
+      },
+      {
+        "id": "T3",
+        "section": "terrace",
+        "seats": 2
+      },
+      {
+        "id": "T4",
+        "section": "terrace",
+        "seats": 4
+      },
+      {
+        "id": "T5",
+        "section": "terrace",
+        "seats": 6
+      },
+      {
+        "id": "T6",
+        "section": "terrace",
+        "seats": 4
+      },
+      {
+        "id": "T7",
+        "section": "terrace",
+        "seats": 2
+      },
+      {
+        "id": "T8",
+        "section": "terrace",
+        "seats": 6
+      },
+      {
+        "id": "F1",
+        "section": "family",
+        "seats": 6
+      },
+      {
+        "id": "F2",
+        "section": "family",
+        "seats": 8
+      },
+      {
+        "id": "F3",
+        "section": "family",
+        "seats": 6
+      },
+      {
+        "id": "F4",
+        "section": "family",
+        "seats": 8
+      },
+      {
+        "id": "F5",
+        "section": "family",
+        "seats": 10
+      },
+      {
+        "id": "F6",
+        "section": "family",
+        "seats": 6
+      }
+    ]
+  },
+  {
+    "id": "nisantasi",
+    "name": "Nişantaşı",
+    "staff": {
+      "waiter": "Zeynep Arslan",
+      "expo": "Can Yılmaz",
+      "cleaner": "Fatma Şahin",
+      "storeManager": "Burak Çelik"
+    },
+    "sections": [
+      {
+        "id": "main",
+        "label": "Main"
+      },
+      {
+        "id": "terrace",
+        "label": "Terrace"
+      },
+      {
+        "id": "family",
+        "label": "Family"
+      }
+    ],
+    "tables": [
+      {
+        "id": "M1",
+        "section": "main",
+        "seats": 2
+      },
+      {
+        "id": "M2",
+        "section": "main",
+        "seats": 2
+      },
+      {
+        "id": "M3",
+        "section": "main",
+        "seats": 4
+      },
+      {
+        "id": "M4",
+        "section": "main",
+        "seats": 4
+      },
+      {
+        "id": "M5",
+        "section": "main",
+        "seats": 2
+      },
+      {
+        "id": "M6",
+        "section": "main",
+        "seats": 4
+      },
+      {
+        "id": "M7",
+        "section": "main",
+        "seats": 6
+      },
+      {
+        "id": "M8",
+        "section": "main",
+        "seats": 4
+      },
+      {
+        "id": "M9",
+        "section": "main",
+        "seats": 2
+      },
+      {
+        "id": "M10",
+        "section": "main",
+        "seats": 2
+      },
+      {
+        "id": "M11",
+        "section": "main",
+        "seats": 4
+      },
+      {
+        "id": "M12",
+        "section": "main",
+        "seats": 4
+      },
+      {
+        "id": "M13",
+        "section": "main",
+        "seats": 2
+      },
+      {
+        "id": "M14",
+        "section": "main",
+        "seats": 4
+      },
+      {
+        "id": "T1",
+        "section": "terrace",
+        "seats": 2
+      },
+      {
+        "id": "T2",
+        "section": "terrace",
+        "seats": 4
+      },
+      {
+        "id": "T3",
+        "section": "terrace",
+        "seats": 2
+      },
+      {
+        "id": "T4",
+        "section": "terrace",
+        "seats": 4
+      },
+      {
+        "id": "T5",
+        "section": "terrace",
+        "seats": 6
+      },
+      {
+        "id": "T6",
+        "section": "terrace",
+        "seats": 4
+      },
+      {
+        "id": "F1",
+        "section": "family",
+        "seats": 6
+      },
+      {
+        "id": "F2",
+        "section": "family",
+        "seats": 8
+      },
+      {
+        "id": "F3",
+        "section": "family",
+        "seats": 6
+      },
+      {
+        "id": "F4",
+        "section": "family",
+        "seats": 8
+      },
+      {
+        "id": "F5",
+        "section": "family",
+        "seats": 10
+      },
+      {
+        "id": "F6",
+        "section": "family",
+        "seats": 6
+      }
+    ]
+  },
+  {
+    "id": "bebek",
+    "name": "Bebek",
+    "staff": {
+      "waiter": "Selin Koç",
+      "expo": "Emre Aydın",
+      "cleaner": "Hatice Polat",
+      "storeManager": "Ozan Güneş"
+    },
+    "sections": [
+      {
+        "id": "main",
+        "label": "Main"
+      },
+      {
+        "id": "terrace",
+        "label": "Terrace"
+      },
+      {
+        "id": "family",
+        "label": "Family"
+      }
+    ],
+    "tables": [
+      {
+        "id": "M1",
+        "section": "main",
+        "seats": 2
+      },
+      {
+        "id": "M2",
+        "section": "main",
+        "seats": 2
+      },
+      {
+        "id": "M3",
+        "section": "main",
+        "seats": 4
+      },
+      {
+        "id": "M4",
+        "section": "main",
+        "seats": 4
+      },
+      {
+        "id": "M5",
+        "section": "main",
+        "seats": 2
+      },
+      {
+        "id": "M6",
+        "section": "main",
+        "seats": 4
+      },
+      {
+        "id": "M7",
+        "section": "main",
+        "seats": 6
+      },
+      {
+        "id": "M8",
+        "section": "main",
+        "seats": 4
+      },
+      {
+        "id": "M9",
+        "section": "main",
+        "seats": 2
+      },
+      {
+        "id": "M10",
+        "section": "main",
+        "seats": 2
+      },
+      {
+        "id": "T1",
+        "section": "terrace",
+        "seats": 2
+      },
+      {
+        "id": "T2",
+        "section": "terrace",
+        "seats": 4
+      },
+      {
+        "id": "T3",
+        "section": "terrace",
+        "seats": 2
+      },
+      {
+        "id": "T4",
+        "section": "terrace",
+        "seats": 4
+      },
+      {
+        "id": "T5",
+        "section": "terrace",
+        "seats": 6
+      },
+      {
+        "id": "T6",
+        "section": "terrace",
+        "seats": 4
+      },
+      {
+        "id": "T7",
+        "section": "terrace",
+        "seats": 2
+      },
+      {
+        "id": "T8",
+        "section": "terrace",
+        "seats": 6
+      },
+      {
+        "id": "T9",
+        "section": "terrace",
+        "seats": 2
+      },
+      {
+        "id": "T10",
+        "section": "terrace",
+        "seats": 4
+      },
+      {
+        "id": "T11",
+        "section": "terrace",
+        "seats": 2
+      },
+      {
+        "id": "T12",
+        "section": "terrace",
+        "seats": 4
+      },
+      {
+        "id": "F1",
+        "section": "family",
+        "seats": 6
+      },
+      {
+        "id": "F2",
+        "section": "family",
+        "seats": 8
+      },
+      {
+        "id": "F3",
+        "section": "family",
+        "seats": 6
+      },
+      {
+        "id": "F4",
+        "section": "family",
+        "seats": 8
+      },
+      {
+        "id": "F5",
+        "section": "family",
+        "seats": 10
+      },
+      {
+        "id": "F6",
+        "section": "family",
+        "seats": 6
+      }
+    ]
+  },
+  {
+    "id": "besiktas",
+    "name": "Beşiktaş",
+    "staff": {
+      "waiter": "Ali Kurt",
+      "expo": "Gizem Tan",
+      "cleaner": "Hasan Erdem",
+      "storeManager": "Merve Bulut"
+    },
+    "sections": [
+      {
+        "id": "main",
+        "label": "Main"
+      },
+      {
+        "id": "terrace",
+        "label": "Terrace"
+      },
+      {
+        "id": "family",
+        "label": "Family"
+      }
+    ],
+    "tables": [
+      {
+        "id": "M1",
+        "section": "main",
+        "seats": 2
+      },
+      {
+        "id": "M2",
+        "section": "main",
+        "seats": 2
+      },
+      {
+        "id": "M3",
+        "section": "main",
+        "seats": 4
+      },
+      {
+        "id": "M4",
+        "section": "main",
+        "seats": 4
+      },
+      {
+        "id": "M5",
+        "section": "main",
+        "seats": 2
+      },
+      {
+        "id": "M6",
+        "section": "main",
+        "seats": 4
+      },
+      {
+        "id": "M7",
+        "section": "main",
+        "seats": 6
+      },
+      {
+        "id": "M8",
+        "section": "main",
+        "seats": 4
+      },
+      {
+        "id": "M9",
+        "section": "main",
+        "seats": 2
+      },
+      {
+        "id": "M10",
+        "section": "main",
+        "seats": 2
+      },
+      {
+        "id": "M11",
+        "section": "main",
+        "seats": 4
+      },
+      {
+        "id": "M12",
+        "section": "main",
+        "seats": 4
+      },
+      {
+        "id": "T1",
+        "section": "terrace",
+        "seats": 2
+      },
+      {
+        "id": "T2",
+        "section": "terrace",
+        "seats": 4
+      },
+      {
+        "id": "T3",
+        "section": "terrace",
+        "seats": 2
+      },
+      {
+        "id": "T4",
+        "section": "terrace",
+        "seats": 4
+      },
+      {
+        "id": "T5",
+        "section": "terrace",
+        "seats": 6
+      },
+      {
+        "id": "T6",
+        "section": "terrace",
+        "seats": 4
+      },
+      {
+        "id": "F1",
+        "section": "family",
+        "seats": 6
+      },
+      {
+        "id": "F2",
+        "section": "family",
+        "seats": 8
+      },
+      {
+        "id": "F3",
+        "section": "family",
+        "seats": 6
+      },
+      {
+        "id": "F4",
+        "section": "family",
+        "seats": 8
+      },
+      {
+        "id": "F5",
+        "section": "family",
+        "seats": 10
+      },
+      {
+        "id": "F6",
+        "section": "family",
+        "seats": 6
+      },
+      {
+        "id": "F7",
+        "section": "family",
+        "seats": 6
+      },
+      {
+        "id": "F8",
+        "section": "family",
+        "seats": 8
+      }
+    ]
+  },
+  {
+    "id": "uskudar",
+    "name": "Üsküdar",
+    "staff": {
+      "waiter": "Kerem Aslan",
+      "expo": "Naz Yıldırım",
+      "cleaner": "Hülya Karaca",
+      "storeManager": "Tolga Doğan"
+    },
+    "sections": [
+      {
+        "id": "main",
+        "label": "Main"
+      },
+      {
+        "id": "terrace",
+        "label": "Terrace"
+      },
+      {
+        "id": "family",
+        "label": "Family"
+      }
+    ],
+    "tables": [
+      {
+        "id": "M1",
+        "section": "main",
+        "seats": 2
+      },
+      {
+        "id": "M2",
+        "section": "main",
+        "seats": 2
+      },
+      {
+        "id": "M3",
+        "section": "main",
+        "seats": 4
+      },
+      {
+        "id": "M4",
+        "section": "main",
+        "seats": 4
+      },
+      {
+        "id": "M5",
+        "section": "main",
+        "seats": 2
+      },
+      {
+        "id": "M6",
+        "section": "main",
+        "seats": 4
+      },
+      {
+        "id": "M7",
+        "section": "main",
+        "seats": 6
+      },
+      {
+        "id": "M8",
+        "section": "main",
+        "seats": 4
+      },
+      {
+        "id": "M9",
+        "section": "main",
+        "seats": 2
+      },
+      {
+        "id": "M10",
+        "section": "main",
+        "seats": 2
+      },
+      {
+        "id": "T1",
+        "section": "terrace",
+        "seats": 2
+      },
+      {
+        "id": "T2",
+        "section": "terrace",
+        "seats": 4
+      },
+      {
+        "id": "T3",
+        "section": "terrace",
+        "seats": 2
+      },
+      {
+        "id": "T4",
+        "section": "terrace",
+        "seats": 4
+      },
+      {
+        "id": "T5",
+        "section": "terrace",
+        "seats": 6
+      },
+      {
+        "id": "T6",
+        "section": "terrace",
+        "seats": 4
+      },
+      {
+        "id": "T7",
+        "section": "terrace",
+        "seats": 2
+      },
+      {
+        "id": "T8",
+        "section": "terrace",
+        "seats": 6
+      },
+      {
+        "id": "F1",
+        "section": "family",
+        "seats": 6
+      },
+      {
+        "id": "F2",
+        "section": "family",
+        "seats": 8
+      },
+      {
+        "id": "F3",
+        "section": "family",
+        "seats": 6
+      },
+      {
+        "id": "F4",
+        "section": "family",
+        "seats": 8
+      }
+    ]
+  }
 ]

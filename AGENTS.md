@@ -1,9 +1,7 @@
-<!-- BEGIN:nextjs-agent-rules -->
+# AGENTS.md
 
-# This is NOT the Next.js you know
+Instructions for AI coding agents working in this repository live in [CLAUDE.md](CLAUDE.md). Read it first, then [SPEC.md](SPEC.md).
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+This project uses **React Router v7 in framework mode** with TypeScript. Before changing routes, loaders, actions or route types, read the docs that ship with the installed version in `node_modules/react-router/docs/`, and the agent skill in `.agents/skills/react-router/`. Do not apply patterns from other frameworks (this repo was scaffolded with Next.js and ported; nothing from Next.js applies any more).
 
-This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
-
-<!-- END:nextjs-agent-rules -->
+Do not run `git commit` or `git push` unless the owner asks in that message, and never add AI attribution (`Co-Authored-By`, "Generated with…") to commits or pull requests.

@@ -20,7 +20,7 @@ Mavera is a five-location restaurant group. This system gives each role one scre
 | **Store manager** | Office, back of house | Control. What's below par, what's being wasted, what to order. |
 | **General manager** | Anywhere, across five locations | Decisions. Not charts — what to do today, and where. |
 
-Four roles are scoped to one location. Only the general manager sees all five.
+Four roles are scoped to one location. Only the general manager sees all five. In the demo the four scoped roles are hardcoded to **Kadıköy** — the stand-in for what authentication would do, since in a real deployment a waiter's location comes from their account, not the URL.
 
 ## Core flows
 
@@ -85,10 +85,29 @@ Five role buttons with icons, no authentication. Dark, warm, high-end feel. A no
 | **Location detail** | One location in depth: trends, top and bottom menu items, prep time distribution, hourly patterns. |
 | **Approvals** | Pending cleaning checklists from all five store managers. Approve or reject with a note. |
 
+### Routes
+
+Fourteen routes: landing plus thirteen role screens. Tabs (floor plan sections, kitchen stations) are query parameters on one route, not separate routes.
+
+| Route | Screen |
+|---|---|
+| `/` | Landing |
+| `/waiter/floor-plan?section=main\|terrace\|family` | Floor plan |
+| `/waiter/order/[tableId]` | Order |
+| `/waiter/ticket/[ticketId]` | Ticket detail |
+| `/kitchen?station=all\|grill\|cold\|dessert` | Ticket rail |
+| `/cleaner` | Task queue |
+| `/store/stock` · `/store/counts` · `/store/movements` · `/store/variance` · `/store/checklist` | Store manager screens |
+| `/gm` | Overview |
+| `/gm/locations/[locationId]` | Location detail — the only route that takes a location in the URL |
+| `/gm/approvals` | Approvals |
+
+`/waiter` and `/store` redirect to their first screen.
+
 ## Data
 
-**Seeded, read-only** (committed JSON, generated once with a fixed seed):
-locations (5) · menu items (~30, each tagged to a station) · ingredients (~20 key items) · recipe lines (~70) · 8–12 weeks of historical orders, counts, movements, and cleaning records.
+**Seeded, read-only** (committed JSON, generated once with a fixed seed by `npm run seed`):
+locations (5, with staff and table layouts) · menu items (32, each tagged to a station) · ingredients (22 key items) · recipe lines (76) · 10 weeks of history per location — daily sales aggregates, weekly stock counts and movements, daily cleaning records. History is aggregated rather than stored as individual orders; the screens only need daily totals.
 
 **Live, mutable** (Redux, persisted to localStorage):
 today's tables, orders, tickets, spill reports, task completions, checklist versions.
@@ -97,15 +116,15 @@ Deliberate patterns are baked into the seed data — weekend rushes, one underpe
 
 ### Entities
 
-- **Location** — id, name, sections, table layout
+- **Location** — id, name, staff, sections, table layout
 - **MenuItem** — id, name, category, price, station, allergens, prep minutes
-- **Ingredient** — id, name, unit, par level, reorder point, current quantity
+- **Ingredient** — id, name, unit, cost per unit, par level, reorder point. Current quantity per location is the latest stock count, not a stored field
 - **RecipeLine** — menu item, ingredient, quantity
 - **Table** — id, section, seats, status, covers, current order
 - **Order** — id, table, items with modifiers, urgency flags, timestamps, total
 - **Ticket** — order reference, station states, started/ready/bumped timestamps
 - **StockCount** — ingredient, counted quantity, date, by whom
-- **StockMovement** — ingredient, quantity, reason, timestamp
+- **StockMovement** — ingredient, quantity (signed: positive in, negative out), reason, timestamp, optional note
 - **CleaningTask** — area, description, due time, frequency
 - **ChecklistVersion** — tasks, submitted by, status, approved by, note
 - **TaskCompletion** — task, timestamp, by whom
@@ -113,7 +132,7 @@ Deliberate patterns are baked into the seed data — weekend rushes, one underpe
 
 ## AI features
 
-One route handler (`app/api/chat/route.js`) streams from Claude and exposes three tools. The API key never leaves the server.
+One server-only route module (`app/routes/api.chat.ts`) streams from Claude and exposes three tools. The API key never leaves the server.
 
 | Role | Tool | Returns | Why AI |
 |---|---|---|---|
@@ -154,9 +173,9 @@ Real authentication · payment processing · bill splitting · coursing and seat
 
 ## Stack
 
-React with **Next.js** (App Router) · **JavaScript** · **Redux Toolkit** · **Tailwind CSS** · deployed on **Vercel**.
+**TypeScript** · **React 19** with **React Router v7** (framework mode, built with Vite) · **HTML5/CSS3** with **Tailwind CSS v4** · **REST-style JSON** from one server-only route module · **Redux Toolkit** · deployed on **Vercel**.
 
-Next.js gives a server-side route handler for the Claude key without standing up a separate backend. Redux Toolkit carries the cross-role state that makes a waiter's order appear on the kitchen screen. Data lives in committed JSON rather than a database, so every reviewer sees the same rich dataset and the demo can be reset — the tradeoff is documented under known limitations.
+React Router's framework mode renders on the server and lets a route module run server-only code, so the Claude key stays off the browser without standing up a separate backend. (Used as a client-only SPA it could not — that is why the mode matters.) It is pinned to version 7 because Vercel's React Router adapter does not support 8 yet. TypeScript types the store, props and loader data, so the compiler checks what the cross-role state depends on. Redux Toolkit carries the cross-role state that makes a waiter's order appear on the kitchen screen. Data lives in committed JSON rather than a database, so every reviewer sees the same rich dataset and the demo can be reset — the tradeoff is documented under known limitations.
 
 ## Success criteria
 

@@ -1,16 +1,18 @@
+import js from "@eslint/js";
 import { defineConfig, globalIgnores } from "eslint/config";
-import nextVitals from "eslint-config-next/core-web-vitals";
+import jsxA11y from "eslint-plugin-jsx-a11y";
+import reactHooks from "eslint-plugin-react-hooks";
+import tseslint from "typescript-eslint";
 
-const eslintConfig = defineConfig([
-  ...nextVitals,
-  // Override default ignores of eslint-config-next.
-  globalIgnores([
-    // Default ignores of eslint-config-next:
-    ".next/**",
-    "out/**",
-    "build/**",
-    "next-env.d.ts",
-  ]),
+export default defineConfig([
+  globalIgnores(["build/**", ".react-router/**", ".agents/**", "node_modules/**"]),
+  js.configs.recommended,
+  tseslint.configs.recommended,
+  jsxA11y.flatConfigs.recommended,
+  reactHooks.configs.flat.recommended,
+  {
+    // The seed generator is a plain Node script, not app code.
+    files: ["scripts/**/*.mjs"],
+    languageOptions: { globals: { console: "readonly", process: "readonly" } },
+  },
 ]);
-
-export default eslintConfig;

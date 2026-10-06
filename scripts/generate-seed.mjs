@@ -11,7 +11,7 @@ const WEEKS = 10;
 const DAYS = WEEKS * 7;
 const BASE_COVERS = 230; // covers on an average day at a location with covers multiplier 1.0
 
-const OUT_DIR = join(dirname(fileURLToPath(import.meta.url)), "..", "src", "data");
+const OUT_DIR = join(dirname(fileURLToPath(import.meta.url)), "..", "app", "data");
 
 // ---------------------------------------------------------------------------
 // Random numbers and small helpers
@@ -244,7 +244,7 @@ const DOW_COVERS = [1.2, 0.7, 0.75, 0.8, 0.9, 1.25, 1.45];
 const DOW_TICKET_PENALTY = [2, 0, 0, 0.3, 0.8, 2.5, 3.5]; // busy days run slower
 const WEEKDAY_HOURS = [4, 8, 12, 13, 8, 4, 4, 8, 14, 15, 10, 5]; // 11:00 → 22:00
 const WEEKEND_HOURS = [2, 5, 8, 10, 8, 5, 5, 9, 15, 18, 13, 7];
-const SERVICE_HOURS = Array.from({ length: 12 }, (_, i) => 11 + i);
+const SERVICE_START_HOUR = 11; // hourlyCovers[0] is the 11:00 hour
 
 // ---------------------------------------------------------------------------
 // Cleaning checklist — the approved daily list (version 1)
@@ -578,6 +578,7 @@ writeJson(
   {
     startDate: START_DATE,
     endDate,
+    serviceStartHour: SERVICE_START_HOUR,
     byLocation: Object.fromEntries(
       Object.entries(salesByLocation).map(([id, { days, itemPrep, prepTimeDistribution }]) => [id, { days, itemPrep, prepTimeDistribution }]),
     ),

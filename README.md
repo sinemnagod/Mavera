@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Mavera
 
-## Getting Started
+A restaurant operations system for a five-location restaurant group in Istanbul (Kadıköy, Nişantaşı, Bebek, Beşiktaş, Üsküdar). Five roles — waiter, kitchen expo, cleaner, store manager, general manager — each get one screen built for what they actually do, and the screens are connected so one role's work becomes another's information.
 
-First, run the development server:
+> **Status: work in progress.** All 14 routes exist as placeholders, the seed data and Redux store are in place, and the app builds. The role screens, the cross-role flows, the AI features, and tests are being built next (see the plan in [CLAUDE.md](CLAUDE.md)).
+
+## Stack
+
+TypeScript · React 19 · React Router v7 (framework mode, Vite) · HTML5/CSS3 with Tailwind CSS v4 · Redux Toolkit · REST-style JSON · deployed on Vercel. AI features will use the Vercel AI SDK with Claude.
+
+## Run it locally
+
+You need **Node.js 20.19 or newer** (or 22.12+; developed on 22) and npm.
 
 ```bash
+git clone <this repository's URL>
+cd mavera
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open <http://localhost:5173>. That's all — the seed data is already committed, so there's nothing to generate and no environment variables to set yet.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+> The AI features (not built yet) will need an Anthropic API key in a `.env` file. It is read only on the server and is never committed.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Scripts
 
-## Learn More
+| Command             | What it does                                           |
+| ------------------- | ------------------------------------------------------ |
+| `npm run dev`       | Dev server with hot reload on port 5173                |
+| `npm run build`     | Production build                                       |
+| `npm start`         | Serve the production build (run `npm run build` first) |
+| `npm run typecheck` | Generate route types, then run the TypeScript compiler |
+| `npm run lint`      | ESLint, including accessibility rules                  |
+| `npm run seed`      | Regenerate the seed data in `app/data/`                |
 
-To learn more about Next.js, take a look at the following resources:
+## Routes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Waiter, kitchen, cleaner and store manager are pinned to the Kadıköy location, standing in for what a real login would decide. Only the general manager can switch location.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Route                                                              | Screen                                                 |
+| ------------------------------------------------------------------ | ------------------------------------------------------ |
+| `/`                                                                | Landing — pick a role, reset demo data                 |
+| `/waiter/floor-plan`                                               | Floor plan (Main / Terrace / Family tabs: `?section=`) |
+| `/waiter/order/:tableId`                                           | Order                                                  |
+| `/waiter/ticket/:ticketId`                                         | Ticket detail                                          |
+| `/kitchen`                                                         | Ticket rail (station tabs: `?station=`)                |
+| `/cleaner`                                                         | Task queue                                             |
+| `/store/stock`, `/counts`, `/movements`, `/variance`, `/checklist` | Store manager                                          |
+| `/gm`                                                              | General manager overview                               |
+| `/gm/locations/:locationId`                                        | One location in depth                                  |
+| `/gm/approvals`                                                    | Cleaning checklist approvals                           |
 
-## Deploy on Vercel
+## Project layout
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+app/root.tsx          document shell, Redux provider, below-1024px message
+app/routes.ts         the route table
+app/routes/           one file per screen
+app/components/       shared components
+app/store/            Redux slices, persistence to localStorage
+app/data/             generated seed data (read-only)
+app/lib/              pure helper functions
+scripts/              the seed generator
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Demo data
+
+The restaurants, menu, recipes, and ten weeks of sales, stock and cleaning history are generated by `scripts/generate-seed.mjs` with a fixed seed, so every checkout sees identical data. Patterns are built in on purpose — weekend rushes, one underperforming location (Üsküdar), Bebek running short on lamb, and a slow-prep dish (Kuzu Tandır) — so the AI features have something real to find.
+
+Today's tables, orders, tickets and spill reports are live state, kept in Redux and saved to your browser's localStorage. **Reset demo data** on the landing page restores the clean state.
+
+## Screen sizes
+
+Mavera is a workplace tool for tablets and desktops, like real point-of-sale systems. It is designed from 1024px up (checked at 1024, 1280, 1440, 1920 and 2560). Below 1024px it shows a designed message instead of a broken layout. The AI chat panel, once built, stays usable down to 375px.
+
+## Known limitations
+
+- Demo mode only: no authentication, payments, or real backend. Data lives in the browser.
+- Stock history is a ten-week generated dataset, and sales history is stored as daily totals rather than individual orders.
+- Dense operational screens are not designed for phones (see above).

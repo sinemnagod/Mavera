@@ -13,9 +13,8 @@
 # testing
 /coverage
 
-# next.js
-/.next/
-/out/
+# React Router (generated route types and build output)
+/.react-router/
 
 # production
 /build
@@ -38,4 +37,3 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts

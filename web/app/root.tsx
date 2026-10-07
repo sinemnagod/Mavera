@@ -37,6 +37,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
+// Shown while the browser loads the app and runs the first route's data loading.
+export function HydrateFallback() {
+  return (
+    <main className="flex flex-1 items-center justify-center">
+      <p role="status" className="text-stone-400">
+        Loading Mavera…
+      </p>
+    </main>
+  );
+}
+
 export default function App() {
   return (
     <StoreProvider>

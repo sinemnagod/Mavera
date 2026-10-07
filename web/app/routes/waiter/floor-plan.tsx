@@ -12,7 +12,7 @@ export function meta() {
 }
 
 // The section lives in the URL (?section=terrace) so it can be bookmarked and shared.
-export function loader({ request }: Route.LoaderArgs) {
+export function clientLoader({ request }: Route.ClientLoaderArgs) {
   const requested = new URL(request.url).searchParams.get("section");
   const section = SECTIONS.find((s) => s.id === requested) ?? SECTIONS[0];
   return { section };

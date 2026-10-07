@@ -14,7 +14,7 @@ export function meta() {
   return [{ title: "Ticket rail · Mavera" }];
 }
 
-export function loader({ request }: Route.LoaderArgs) {
+export function clientLoader({ request }: Route.ClientLoaderArgs) {
   const requested = new URL(request.url).searchParams.get("station");
   const station = STATIONS.find((s) => s.id === requested) ?? STATIONS[0];
   return { station };

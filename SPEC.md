@@ -20,7 +20,7 @@ Mavera is a five-location restaurant group. This system gives each role one scre
 | **Store manager** | Office, back of house | Control. What's below par, what's being wasted, what to order. |
 | **General manager** | Anywhere, across five locations | Decisions. Not charts — what to do today, and where. |
 
-Four roles are scoped to one location. Only the general manager sees all five. In the demo the four scoped roles are hardcoded to **Kadıköy** — the stand-in for what authentication would do, since in a real deployment a waiter's location comes from their account, not the URL.
+Four roles are scoped to one location. Only the general manager sees all five. A person's role and location come from their **account**: they sign in with an email and password, and the API decides what they may see. A waiter at Kadıköy never sees Bebek's data, and the URL carries no location for those four roles.
 
 ## Core flows
 
@@ -106,13 +106,15 @@ Fourteen routes: landing plus thirteen role screens. Tabs (floor plan sections, 
 
 ## Data
 
-**Seeded, read-only** (committed JSON, generated once with a fixed seed by `npm run seed`):
+Everything lives in **PostgreSQL**, reached only through the NestJS API (via Prisma). A seed script fills the database.
+
+**Seeded** (generated once with a fixed seed, then loaded into the database):
 locations (5, with staff and table layouts) · menu items (32, each tagged to a station) · ingredients (22 key items) · recipe lines (76) · 10 weeks of history per location — daily sales aggregates, weekly stock counts and movements, daily cleaning records. History is aggregated rather than stored as individual orders; the screens only need daily totals.
 
-**Live, mutable** (Redux, persisted to localStorage):
-today's tables, orders, tickets, spill reports, task completions, checklist versions.
+**Live** (created while people use the app, stored in the same database):
+user accounts, today's tables, orders, tickets, spill reports, task completions, checklist versions. Screens refresh from the API every few seconds, so one person's action shows up on another person's screen.
 
-Deliberate patterns are baked into the seed data — weekend rushes, one underperforming location, a slow-prep dish — so the AI has something real to find. A "reset demo data" control restores the clean state.
+Deliberate patterns are baked into the seed data — weekend rushes, one underperforming location, a slow-prep dish — so the AI has something real to find. Re-running the seed script restores the clean state.
 
 ### Entities
 
@@ -132,7 +134,7 @@ Deliberate patterns are baked into the seed data — weekend rushes, one underpe
 
 ## AI features
 
-One server-only route module (`app/routes/api.chat.ts`) streams from Claude and exposes three tools. The API key never leaves the server.
+One NestJS endpoint (`api/`, route `POST /ai/chat`) streams from Claude and exposes three tools. The Claude API key lives only in the API's environment and never reaches the browser.
 
 | Role | Tool | Returns | Why AI |
 |---|---|---|---|
@@ -165,24 +167,38 @@ Mavera is a workplace tool. Kitchen displays, floor plans, and five-location das
 
 **Tested at** 1024, 1280, 1440, 1920, 2560.
 
-**Note on the assignment criteria.** Several cards ask for phone-width support and mobile Safari checks. The AI chat interface is fully responsive to 375px and is the surface those criteria are verified against. The dense operational screens meet them with a designed below-breakpoint state — nothing overflows, nothing overlaps, and Lighthouse's mobile preset (which measures performance on a throttled device, not layout) still passes. This is a deliberate product decision, recorded here and in the README.
+**Note on phones.** The dense operational screens are deliberately not designed for phones; below 1024px they show the designed message instead of a broken layout. The AI chat panel, once built, is meant to stay usable down to 375px. This is a deliberate product decision, recorded here and in the README.
 
 ## Out of scope
 
-Real authentication · payment processing · bill splitting · coursing and seat-level ordering · reservations and waitlists · printer and hardware integration · payroll and scheduling · supplier ordering · a real backend or database · multi-language · offline mode · alcohol (Mavera does not serve it).
+Single sign-on, password reset and email verification · payment processing · bill splitting · coursing and seat-level ordering · reservations and waitlists · printer and hardware integration · payroll and scheduling · supplier ordering · live push updates (screens poll instead) · multi-language · offline mode · alcohol (Mavera does not serve it).
 
 ## Stack
 
-**TypeScript** · **React 19** with **React Router v7** (framework mode, built with Vite) · **HTML5/CSS3** with **Tailwind CSS v4** · **REST-style JSON** from one server-only route module · **Redux Toolkit** · deployed on **Vercel**.
+The internship's required stack, all of it used:
 
-React Router's framework mode renders on the server and lets a route module run server-only code, so the Claude key stays off the browser without standing up a separate backend. (Used as a client-only SPA it could not — that is why the mode matters.) It is pinned to version 7 because Vercel's React Router adapter does not support 8 yet. TypeScript types the store, props and loader data, so the compiler checks what the cross-role state depends on. Redux Toolkit carries the cross-role state that makes a waiter's order appear on the kitchen screen. Data lives in committed JSON rather than a database, so every reviewer sees the same rich dataset and the demo can be reset — the tradeoff is documented under known limitations.
+| Technology | Where it is used in Mavera |
+|---|---|
+| **TypeScript** | Both the web app and the API |
+| **React** | The screens (`web/`) |
+| **React Router** | Routing for the 14 screens, in SPA mode (`web/`) |
+| **HTML5 / CSS3** | Semantic markup and styling; Tailwind CSS is added on top for CSS |
+| **NestJS** | The backend (`api/`): controllers, services, guards |
+| **REST API / JSON** | How the web app and the API talk to each other |
+| **PostgreSQL** | The database (hosted on Supabase, used only as a Postgres host) |
+| **Prisma** | The ORM: the schema, migrations and typed queries inside the API |
+| **JWT** | Login: the API signs a token, and a guard checks it on every request |
+| **Git / GitHub** | Version control, with Conventional Commits |
+
+Extras on top: Tailwind CSS (styling), the Vercel AI SDK with Claude (the three AI tools), Zod (validating inputs and AI output). The web app is a **single-page app**: the browser downloads it once and then calls the API. Passwords are hashed, and permissions (role and location) are checked on the server, not in the browser.
 
 ## Success criteria
 
-- All five roles usable end to end; the seven cross-role flows visibly work
-- Three AI tools return structured data rendered as components, never raw text
-- Failure states designed and tested by sabotage, not discovered by accident
-- Tests pass, coverage ≥50%
-- Layout holds from 1024px to 2560px with no overflow; below 1024px shows the designed message
-- Lighthouse mobile ≥85, zero WCAG AA violations, primary flow completable by keyboard alone
-- A new developer can clone, install, and run it in under five minutes
+What must work (in priority order):
+
+- People can sign in with email and password, and each role sees only what it should
+- The core flows work across real accounts: waiter order → kitchen ticket → ready, and spill report → cleaner queue
+- At least one AI tool returns structured data rendered as a component, with all four states designed
+- A live demo link, a clean GitHub history, and a README that gets a new developer running quickly
+
+Nice to have, if time remains: the other screens and flows, the other two AI tools, tests, an accessibility and Lighthouse pass.

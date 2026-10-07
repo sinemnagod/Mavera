@@ -1,7 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+node_modules/
 /.pnp
 .pnp.*
 .yarn/*
@@ -11,13 +11,14 @@
 !.yarn/versions
 
 # testing
-/coverage
+coverage/
 
 # React Router (generated route types and build output)
-/.react-router/
+.react-router/
 
 # production
-/build
+build/
+dist/
 
 # misc
 .DS_Store
@@ -37,3 +38,6 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# personal study notes, not part of the project
+STUDY_PLAN.md

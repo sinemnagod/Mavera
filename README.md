@@ -2,80 +2,84 @@
 
 A restaurant operations system for a five-location restaurant group in Istanbul (Kadıköy, Nişantaşı, Bebek, Beşiktaş, Üsküdar). Five roles — waiter, kitchen expo, cleaner, store manager, general manager — each get one screen built for what they actually do, and the screens are connected so one role's work becomes another's information.
 
-> **Status: work in progress.** All 14 routes exist as placeholders, the seed data and Redux store are in place, and the app builds. The role screens, the cross-role flows, the AI features, and tests are being built next (see the plan in [CLAUDE.md](CLAUDE.md)).
+> **Status: work in progress.** The web app has all 14 screens as placeholders, and the API has just been created. The database, sign-in, the real screens and the AI features are being built next.
 
 ## Stack
 
-TypeScript · React 19 · React Router v7 (framework mode, Vite) · HTML5/CSS3 with Tailwind CSS v4 · Redux Toolkit · REST-style JSON · deployed on Vercel. AI features will use the Vercel AI SDK with Claude.
+| Technology | Use |
+|---|---|
+| TypeScript | Web app and API |
+| React + React Router (v7, single-page app mode) | The screens, in `web/` |
+| HTML5 / CSS3 (with Tailwind CSS) | Markup and styling |
+| NestJS | The backend, in `api/` |
+| REST API / JSON | How the web app and the API talk |
+| PostgreSQL (hosted on Supabase) | The database |
+| Prisma | Database schema, migrations and queries |
+| JWT | Sign-in tokens |
+| Git / GitHub | Version control |
+
+The AI features will use the Vercel AI SDK with Claude, called from the API.
+
+```
+Browser (web/)  ──JSON over HTTP, JWT──▶  NestJS API (api/)  ──Prisma──▶  PostgreSQL
+```
 
 ## Run it locally
 
-You need **Node.js 20.19 or newer** (or 22.12+; developed on 22) and npm.
+You need **Node.js 20.19 or newer** (developed on 22) and npm. The web app and the API are separate, so you use two terminals.
+
+**Terminal 1 — the API**
 
 ```bash
-git clone <this repository's URL>
-cd mavera
+cd api
+npm install
+npm run start:dev
+```
+
+It listens on <http://localhost:3000>.
+
+**Terminal 2 — the web app**
+
+```bash
+cd web
 npm install
 npm run dev
 ```
 
-Open <http://localhost:5173>. That's all — the seed data is already committed, so there's nothing to generate and no environment variables to set yet.
+Open <http://localhost:5173>.
 
-> The AI features (not built yet) will need an Anthropic API key in a `.env` file. It is read only on the server and is never committed.
-
-## Scripts
-
-| Command             | What it does                                           |
-| ------------------- | ------------------------------------------------------ |
-| `npm run dev`       | Dev server with hot reload on port 5173                |
-| `npm run build`     | Production build                                       |
-| `npm start`         | Serve the production build (run `npm run build` first) |
-| `npm run typecheck` | Generate route types, then run the TypeScript compiler |
-| `npm run lint`      | ESLint, including accessibility rules                  |
-| `npm run seed`      | Regenerate the seed data in `app/data/`                |
-
-## Routes
-
-Waiter, kitchen, cleaner and store manager are pinned to the Kadıköy location, standing in for what a real login would decide. Only the general manager can switch location.
-
-| Route                                                              | Screen                                                 |
-| ------------------------------------------------------------------ | ------------------------------------------------------ |
-| `/`                                                                | Landing — pick a role, reset demo data                 |
-| `/waiter/floor-plan`                                               | Floor plan (Main / Terrace / Family tabs: `?section=`) |
-| `/waiter/order/:tableId`                                           | Order                                                  |
-| `/waiter/ticket/:ticketId`                                         | Ticket detail                                          |
-| `/kitchen`                                                         | Ticket rail (station tabs: `?station=`)                |
-| `/cleaner`                                                         | Task queue                                             |
-| `/store/stock`, `/counts`, `/movements`, `/variance`, `/checklist` | Store manager                                          |
-| `/gm`                                                              | General manager overview                               |
-| `/gm/locations/:locationId`                                        | One location in depth                                  |
-| `/gm/approvals`                                                    | Cleaning checklist approvals                           |
+> Database setup, environment variables and demo accounts will be added here as they are built.
 
 ## Project layout
 
 ```
-app/root.tsx          document shell, Redux provider, below-1024px message
-app/routes.ts         the route table
-app/routes/           one file per screen
-app/components/       shared components
-app/store/            Redux slices, persistence to localStorage
-app/data/             generated seed data (read-only)
-app/lib/              pure helper functions
-scripts/              the seed generator
+web/    the React app (screens, components, routing)
+api/    the NestJS API (controllers, services, Prisma)
+SPEC.md what Mavera is and does
 ```
 
-## Demo data
+## Screens
 
-The restaurants, menu, recipes, and ten weeks of sales, stock and cleaning history are generated by `scripts/generate-seed.mjs` with a fixed seed, so every checkout sees identical data. Patterns are built in on purpose — weekend rushes, one underperforming location (Üsküdar), Bebek running short on lamb, and a slow-prep dish (Kuzu Tandır) — so the AI features have something real to find.
+Fourteen routes. Role and location come from the signed-in account, so only the general manager's location screen has an id in its address.
 
-Today's tables, orders, tickets and spill reports are live state, kept in Redux and saved to your browser's localStorage. **Reset demo data** on the landing page restores the clean state.
+| Route | Screen |
+|---|---|
+| `/` | Landing / sign-in |
+| `/waiter/floor-plan` | Floor plan (Main / Terrace / Family tabs: `?section=`) |
+| `/waiter/order/:tableId` | Order |
+| `/waiter/ticket/:ticketId` | Ticket detail |
+| `/kitchen` | Ticket rail (station tabs: `?station=`) |
+| `/cleaner` | Task queue |
+| `/store/stock`, `/counts`, `/movements`, `/variance`, `/checklist` | Store manager |
+| `/gm` | General manager overview |
+| `/gm/locations/:locationId` | One location in depth |
+| `/gm/approvals` | Cleaning checklist approvals |
 
 ## Screen sizes
 
-Mavera is a workplace tool for tablets and desktops, like real point-of-sale systems. It is designed from 1024px up (checked at 1024, 1280, 1440, 1920 and 2560). Below 1024px it shows a designed message instead of a broken layout. The AI chat panel, once built, stays usable down to 375px.
+Mavera is a workplace tool for tablets and desktops, like real point-of-sale systems. It is designed from 1024px up. Below 1024px it shows a designed message instead of a broken layout.
 
 ## Known limitations
 
-- Demo mode only: no authentication, payments, or real backend. Data lives in the browser.
-- Stock history is a ten-week generated dataset, and sales history is stored as daily totals rather than individual orders.
 - Dense operational screens are not designed for phones (see above).
+- Sales history is stored as daily totals rather than individual orders.

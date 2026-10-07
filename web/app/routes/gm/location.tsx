@@ -6,8 +6,8 @@ export function meta({ loaderData }: Route.MetaArgs) {
   return [{ title: `${loaderData?.name ?? "Location"} · Mavera` }];
 }
 
-// Runs on the server only, so the seed data never has to ship to the browser for this screen.
-export function loader({ params }: Route.LoaderArgs) {
+// Runs in the browser. For now it reads the bundled seed file; it will ask the NestJS API instead.
+export function clientLoader({ params }: Route.ClientLoaderArgs) {
   const location = locations.find((l) => l.id === params.locationId);
   if (!location) throw data("Location not found", { status: 404 });
   return { name: location.name };

@@ -11,13 +11,13 @@ export default function HorizontalBars({ rows, format = (v) => String(Math.round
       {rows.map((row) => (
         <li key={row.label}>
           <div className="flex justify-between text-sm">
-            <span className="text-stone-200">{row.label}</span>
-            <span className="tabular-nums text-stone-300">
+            <span className="text-stone-800">{row.label}</span>
+            <span className="tabular-nums text-stone-700">
               {format(row.value)}
               {row.note && <span className="ml-1 text-stone-500">{row.note}</span>}
             </span>
           </div>
-          <div className="mt-1 h-2 rounded bg-white/10">
+          <div className="mt-1 h-2 rounded bg-stone-200">
             <div className="h-2 rounded bg-amber-400/80" style={{ width: `${(row.value / max) * 100}%` }} />
           </div>
         </li>

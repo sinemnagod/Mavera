@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router";
+import Logo from "~/components/Logo";
 import SpillDialog from "~/components/SpillDialog";
 import { clearSession } from "~/lib/session";
 import type { SessionUser } from "~/lib/types";
@@ -20,20 +21,20 @@ export default function RoleTopBar({ roleName, user, links = [], showReportSpill
   }
 
   return (
-    <header className="flex flex-wrap items-center gap-4 border-b border-white/10 bg-stone-950 px-6 py-4 text-stone-100">
-      <span className="text-sm font-semibold tracking-wide text-amber-400">Mavera</span>
+    <header className="sticky top-0 z-30 flex flex-wrap items-center gap-x-6 gap-y-2 border-b border-stone-200 bg-white/80 px-6 py-3 text-stone-900 shadow-sm backdrop-blur-xl">
+      <Logo />
 
-      <span className="text-sm text-stone-300">
+      <span className="rounded-full bg-amber-100 px-3 py-1 text-sm font-semibold text-amber-900">
         {roleName} · {user.locationName ?? "All locations"}
       </span>
 
       {links.length > 0 && (
-        <nav aria-label={`${roleName} sections`} className="flex flex-wrap gap-2 text-sm">
+        <nav aria-label={`${roleName} sections`} className="flex flex-wrap gap-1 text-sm">
           {links.map((link) => (
             <Link
               key={link.to}
               to={link.to}
-              className={`rounded-full px-3 py-1 text-stone-300 hover:bg-white/10 hover:text-white ${focus}`}
+              className={`rounded-full px-3 py-1.5 font-medium text-stone-700 transition hover:bg-stone-100 hover:text-stone-900 ${focus}`}
             >
               {link.label}
             </Link>
@@ -43,11 +44,11 @@ export default function RoleTopBar({ roleName, user, links = [], showReportSpill
 
       <div className="ml-auto flex items-center gap-3">
         {showReportSpill && <SpillDialog />}
-        <span className="hidden text-sm text-stone-400 xl:inline">{user.name}</span>
+        <span className="hidden text-sm text-stone-700 xl:inline">{user.name}</span>
         <button
           type="button"
           onClick={signOut}
-          className={`rounded-full border border-white/15 px-3 py-1.5 text-sm text-stone-300 hover:bg-white/10 ${focus}`}
+          className={`rounded-full border border-stone-300 bg-white px-4 py-1.5 text-sm font-medium text-stone-800 shadow-sm transition hover:bg-stone-100 active:scale-95 ${focus}`}
         >
           Sign out
         </button>

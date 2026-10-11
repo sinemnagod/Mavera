@@ -21,7 +21,7 @@ export default function BarChart({ label, data, format = (v) => String(Math.roun
           <div key={d.label} className="flex-1 rounded-t bg-amber-400/80" style={{ height: `${Math.max(2, (d.value / max) * 100)}%` }} title={`${d.label}: ${format(d.value)}`} />
         ))}
       </div>
-      <figcaption className="mt-2 flex justify-between text-xs text-stone-400">
+      <figcaption className="mt-2 flex justify-between text-xs text-stone-600">
         <span>{data[0]?.label}</span>
         <span>{label}</span>
         <span>{data[data.length - 1]?.label}</span>

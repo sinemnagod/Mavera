@@ -19,7 +19,7 @@ export function clientLoader() {
 const STATUS_STYLE = {
   PENDING: "bg-amber-400 text-stone-950",
   APPROVED: "bg-emerald-500 text-emerald-950",
-  REJECTED: "bg-red-500 text-white",
+  REJECTED: "bg-red-600 text-white",
 } as const;
 
 export default function ChecklistEditor({ loaderData: versions }: Route.ComponentProps) {
@@ -55,37 +55,37 @@ export default function ChecklistEditor({ loaderData: versions }: Route.Componen
     <div className="mx-auto max-w-5xl space-y-6 p-6">
       <div>
         <h1 className={heading}>Checklist editor</h1>
-        <p className="mt-1 max-w-prose text-sm text-stone-400">
+        <p className="mt-1 max-w-prose text-sm text-stone-600">
           Edit the daily cleaning tasks, then submit a new version. The general manager approves it, and only then does it become the cleaner's list.
         </p>
       </div>
 
       {pending && (
-        <p role="status" className="rounded-lg border border-amber-400 bg-amber-950/60 px-4 py-3 text-amber-100">
+        <p role="status" className="rounded-lg border border-amber-400 bg-amber-50 px-4 py-3 text-amber-900">
           Version {pending.version} is waiting for the general manager's approval. You can submit another once it is decided.
         </p>
       )}
-      {sent && !pending && <p role="status" className="text-emerald-300">Submitted.</p>}
+      {sent && !pending && <p role="status" className="text-emerald-700">Submitted.</p>}
 
       <section className={card} aria-labelledby="tasks">
-        <h2 id="tasks" className="mb-3 text-lg font-semibold text-white">
-          Tasks ({tasks.length}) <span className="text-sm font-normal text-stone-400">· starting from version {base?.version}</span>
+        <h2 id="tasks" className="mb-3 text-lg font-semibold text-stone-900">
+          Tasks ({tasks.length}) <span className="text-sm font-normal text-stone-600">· starting from version {base?.version}</span>
         </h2>
         <ul className="space-y-2">
           {tasks.map((task, index) => (
             <li key={index} className="grid grid-cols-[130px_1fr_110px_auto] items-end gap-2">
               <div>
-                <label htmlFor={`area-${index}`} className="mb-1 block text-xs text-stone-400">Area</label>
+                <label htmlFor={`area-${index}`} className="mb-1 block text-xs text-stone-600">Area</label>
                 <select id={`area-${index}`} value={task.area} onChange={(e) => update(index, { area: e.target.value })} className={input}>
                   {AREAS.map((a) => <option key={a}>{a}</option>)}
                 </select>
               </div>
               <div>
-                <label htmlFor={`desc-${index}`} className="mb-1 block text-xs text-stone-400">Task</label>
+                <label htmlFor={`desc-${index}`} className="mb-1 block text-xs text-stone-600">Task</label>
                 <input id={`desc-${index}`} value={task.description} onChange={(e) => update(index, { description: e.target.value })} className={input} />
               </div>
               <div>
-                <label htmlFor={`due-${index}`} className="mb-1 block text-xs text-stone-400">Due</label>
+                <label htmlFor={`due-${index}`} className="mb-1 block text-xs text-stone-600">Due</label>
                 <input id={`due-${index}`} type="time" value={task.dueTime} onChange={(e) => update(index, { dueTime: e.target.value })} className={input} />
               </div>
               <button type="button" onClick={() => setTasks((c) => c.filter((_, i) => i !== index))} aria-label={`Remove task: ${task.description}`} className={button.small}>
@@ -101,19 +101,19 @@ export default function ChecklistEditor({ loaderData: versions }: Route.Componen
           <button type="button" onClick={submit} disabled={busy || !!pending || tasks.length === 0} className={button.primary}>
             {busy ? "Submitting…" : "Submit for approval"}
           </button>
-          <p role="alert" className="text-sm text-red-400">{error}</p>
+          <p role="alert" className="text-sm text-red-700">{error}</p>
         </div>
       </section>
 
       <section aria-labelledby="history">
-        <h2 id="history" className="mb-3 text-lg font-semibold text-white">Version history</h2>
+        <h2 id="history" className="mb-3 text-lg font-semibold text-stone-900">Version history</h2>
         <ul className="space-y-2">
           {versions.map((v) => (
-            <li key={v.id} className="flex flex-wrap items-center gap-3 rounded-lg border border-white/10 bg-stone-900 px-4 py-3 text-sm">
-              <span className="font-medium text-white">Version {v.version}</span>
+            <li key={v.id} className="flex flex-wrap items-center gap-3 rounded-lg border border-stone-200 bg-white px-4 py-3 text-sm">
+              <span className="font-medium text-stone-900">Version {v.version}</span>
               <span className={`rounded-full px-3 py-0.5 text-xs font-semibold ${STATUS_STYLE[v.status]}`}>{v.status.toLowerCase()}</span>
-              <span className="text-stone-400">{v.tasks.length} tasks · submitted {formatShortDate(v.submittedAt)}</span>
-              {v.note && <span className="text-stone-300">GM note: “{v.note}”</span>}
+              <span className="text-stone-600">{v.tasks.length} tasks · submitted {formatShortDate(v.submittedAt)}</span>
+              {v.note && <span className="text-stone-700">GM note: “{v.note}”</span>}
             </li>
           ))}
         </ul>

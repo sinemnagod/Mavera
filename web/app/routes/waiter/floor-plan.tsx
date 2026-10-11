@@ -16,11 +16,11 @@ const SECTIONS = [
 
 // Every status has a colour AND a word, so nothing depends on colour alone.
 const STATUS: Record<TableStatus, { label: string; style: string }> = {
-  FREE: { label: "Free", style: "border-white/15 bg-stone-900 text-stone-300" },
-  SEATED: { label: "Seated", style: "border-sky-400/60 bg-sky-950 text-sky-100" },
-  ORDERED: { label: "Ordered", style: "border-amber-400/60 bg-amber-950 text-amber-100" },
-  READY: { label: "Food ready", style: "border-emerald-400 bg-emerald-900 text-emerald-50" },
-  CHECK_REQUESTED: { label: "Check requested", style: "border-violet-400/60 bg-violet-950 text-violet-100" },
+  FREE: { label: "Free", style: "border-stone-300 bg-white text-stone-700" },
+  SEATED: { label: "Seated", style: "border-sky-400/60 bg-sky-50 text-sky-900" },
+  ORDERED: { label: "Ordered", style: "border-amber-400/60 bg-amber-50 text-amber-900" },
+  READY: { label: "Food ready", style: "border-emerald-400 bg-emerald-100 text-emerald-900" },
+  CHECK_REQUESTED: { label: "Check requested", style: "border-violet-400/60 bg-violet-50 text-violet-900" },
 };
 
 export function meta() {
@@ -49,7 +49,7 @@ export default function FloorPlan({ loaderData }: Route.ComponentProps) {
       {/* Flow 2: the kitchen marks an order ready, and it appears here within a few seconds. */}
       <div role="status" aria-live="polite" className="mt-4 space-y-2">
         {ready.map((table) => (
-          <p key={table.id} className="rounded-lg border border-emerald-400 bg-emerald-900/60 px-4 py-2 text-emerald-50">
+          <p key={table.id} className="animate-pop rounded-xl border border-emerald-400 bg-emerald-100 px-4 py-2 text-emerald-900">
             <strong>Table {table.code}:</strong> food is ready — run it to the table.{" "}
             {table.orderId && (
               <Link to={`/waiter/ticket/${table.orderId}`} className={`underline ${focus}`}>
@@ -63,7 +63,7 @@ export default function FloorPlan({ loaderData }: Route.ComponentProps) {
       <TabNav label="Floor plan section" basePath="/waiter/floor-plan" param="section" tabs={SECTIONS} activeId={section.id} />
 
       <ul className="mt-6 grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-4">
-        {visible.map((table) => {
+        {visible.map((table, index) => {
           const status = STATUS[table.status];
           const body = (
             <>
@@ -74,9 +74,9 @@ export default function FloorPlan({ loaderData }: Route.ComponentProps) {
               </span>
             </>
           );
-          const tile = `flex h-full min-h-28 w-full flex-col items-start justify-between rounded-xl border-2 p-4 text-left ${status.style} ${focus}`;
+          const tile = `flex h-full min-h-28 w-full flex-col items-start justify-between rounded-2xl border-2 p-4 text-left shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg active:scale-[0.98] ${table.status === "READY" ? "animate-pulse-ring" : ""} ${status.style} ${focus}`;
           return (
-            <li key={table.id}>
+            <li key={table.id} className="animate-fade-up" style={{ animationDelay: `${index * 35}ms` }}>
               {table.status === "FREE" ? (
                 <button type="button" onClick={() => setSeating(table)} className={tile} aria-label={`Table ${table.code}, free, ${table.seats} seats. Seat guests`}>
                   {body}

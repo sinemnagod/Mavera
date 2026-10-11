@@ -51,7 +51,7 @@ export default function TicketDetail({ loaderData: order }: Route.ComponentProps
     <div className="mx-auto max-w-3xl space-y-6 p-6">
       <div className="flex items-baseline justify-between">
         <h1 className={heading}>Table {order.table.code} · ticket</h1>
-        <Link to="/waiter/floor-plan" className={`text-sm text-stone-400 underline ${focus}`}>
+        <Link to="/waiter/floor-plan" className={`text-sm text-stone-600 underline ${focus}`}>
           Back to floor plan
         </Link>
       </div>
@@ -59,45 +59,45 @@ export default function TicketDetail({ loaderData: order }: Route.ComponentProps
       <div
         role="status"
         aria-live="polite"
-        className={`rounded-lg border px-4 py-3 ${ready && !closed ? "border-emerald-400 bg-emerald-900/60 text-emerald-50" : "border-white/10 bg-stone-900 text-stone-200"}`}
+        className={`rounded-lg border px-4 py-3 ${ready && !closed ? "border-emerald-400 bg-emerald-100 text-emerald-900" : "border-stone-200 bg-white text-stone-800"}`}
       >
         {closed ? "This table is closed." : order.ticket ? TICKET_LABEL[order.ticket.status] : "Not sent yet"}
-        {order.sentAt && <span className="ml-2 text-sm opacity-70">Sent at {formatClock(order.sentAt)}</span>}
+        {order.sentAt && <span className="ml-2 text-sm font-medium">Sent at {formatClock(order.sentAt)}</span>}
       </div>
 
       <section className={card} aria-label="Items">
         {order.flags.length > 0 && (
           <p className="mb-3 flex flex-wrap gap-2">
             {order.flags.map((f) => (
-              <span key={f} className="rounded-full bg-red-500 px-3 py-0.5 text-xs font-semibold text-white">
+              <span key={f} className="rounded-full bg-red-600 px-3 py-0.5 text-xs font-semibold text-white">
                 {f.replace("_", " ")}
               </span>
             ))}
           </p>
         )}
-        <ul className="divide-y divide-white/10">
+        <ul className="divide-y divide-stone-200">
           {order.items.map((item) => (
             <li key={item.id} className="flex items-start justify-between gap-4 py-3">
               <div>
-                <p className="font-medium text-white">
+                <p className="font-medium text-stone-900">
                   {item.quantity} × {item.name}
                 </p>
-                <p className="text-xs text-stone-400">
+                <p className="text-xs text-stone-600">
                   {item.station.toLowerCase()}
                   {item.modifiers.length > 0 && ` · ${item.modifiers.join(", ")}`}
                 </p>
               </div>
-              <p className="text-stone-300">{formatMoney(item.price * item.quantity)}</p>
+              <p className="text-stone-700">{formatMoney(item.price * item.quantity)}</p>
             </li>
           ))}
         </ul>
-        <p className="mt-3 flex justify-between border-t border-white/10 pt-3 text-lg font-semibold text-white">
+        <p className="mt-3 flex justify-between border-t border-stone-200 pt-3 text-lg font-semibold text-stone-900">
           <span>Total</span>
           <span>{formatMoney(order.total)}</span>
         </p>
       </section>
 
-      <p role="alert" className="min-h-5 text-sm text-red-400">
+      <p role="alert" className="min-h-5 text-sm text-red-700">
         {error}
       </p>
 

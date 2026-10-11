@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Illustration of the Istanbul skyline at sunset: domes, minarets and the Galata Tower above the water">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fde8c9"/>
+      <stop offset="0.38" stop-color="#fbcfa6"/>
+      <stop offset="0.62" stop-color="#f5b0a2"/>
+      <stop offset="0.74" stop-color="#d9a2bd"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#fffbe9"/>
+      <stop offset="0.35" stop-color="#ffe7b4"/>
+      <stop offset="1" stop-color="#ffd7a0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f1b79f"/>
+      <stop offset="0.45" stop-color="#b98aa9"/>
+      <stop offset="1" stop-color="#6f5a8d"/>
+    </linearGradient>
+    <linearGradient id="far" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e6c2cf"/>
+      <stop offset="1" stop-color="#d7a9bd"/>
+    </linearGradient>
+    <linearGradient id="mid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c593ad"/>
+      <stop offset="1" stop-color="#a97a9d"/>
+    </linearGradient>
+    <linearGradient id="near" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#85629a"/>
+      <stop offset="1" stop-color="#6c5189"/>
+    </linearGradient>
+  </defs>
+
+  <style>
+    .cloud { animation: drift 60s ease-in-out infinite alternate; }
+    .cloud.slow { animation-duration: 90s; }
+    .glow { transform-origin: 1350px 640px; animation: glow 7s ease-in-out infinite; }
+    .gull { animation: fly 28s linear infinite; }
+    .boat { animation: bob 5s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes drift { from { transform: translateX(-40px); } to { transform: translateX(60px); } }
+    @keyframes glow { 0%, 100% { opacity: 0.85; transform: scale(1); } 50% { opacity: 1; transform: scale(1.05); } }
+    @keyframes fly { from { transform: translateX(-120px); } to { transform: translateX(2100px); } }
+    @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+
+  <!-- Sky and sun -->
+  <rect width="1920" height="1080" fill="url(#sky)"/>
+  <circle class="glow" cx="1350" cy="640" r="430" fill="url(#sun)" opacity="0.7"/>
+  <circle cx="1350" cy="640" r="105" fill="#fff6dc"/>
+
+  <!-- Clouds -->
+  <g fill="#ffffff" opacity="0.5">
+    <g class="cloud"><ellipse cx="300" cy="200" rx="170" ry="26"/><ellipse cx="400" cy="178" rx="110" ry="24"/><ellipse cx="220" cy="184" rx="90" ry="20"/></g>
+    <g class="cloud slow"><ellipse cx="1120" cy="140" rx="200" ry="28"/><ellipse cx="1230" cy="120" rx="120" ry="24"/></g>
+    <g class="cloud"><ellipse cx="1650" cy="300" rx="180" ry="24"/><ellipse cx="1740" cy="280" rx="100" ry="20"/></g>
+    <g class="cloud slow" opacity="0.7"><ellipse cx="760" cy="330" rx="150" ry="18"/><ellipse cx="840" cy="316" rx="80" ry="15"/></g>
+  </g>
+
+  <!-- Seagulls -->
+  <g fill="none" stroke="#7a5a86" stroke-width="3" stroke-linecap="round" opacity="0.6">
+    <path class="gull" d="M0 360 q10 -10 20 0 q10 -10 20 0"/>
+    <path class="gull" style="animation-delay:-9s" d="M0 410 q8 -8 16 0 q8 -8 16 0"/>
+    <path class="gull" style="animation-delay:-18s" d="M0 330 q7 -7 14 0 q7 -7 14 0"/>
+  </g>
+
+  <!-- Far skyline -->
+  <g fill="url(#far)" opacity="0.85">
+    <path d="M0 780 V700 h60 v-18 h50 v30 h40 v-40 h56 v22 h40 v-26 h70 v34 h50 v-16 h60 v28 h40 v-44 h46 v30 h60 v-12 h70 v30 h50 V780 Z"/>
+    <path d="M1180 780 V716 h60 v-26 h40 v34 h50 v-30 h60 v24 h70 v-40 h46 v32 h60 v-18 h70 v28 h60 v-36 h50 v24 h70 V780 Z"/>
+    <rect x="95" y="610" width="8" height="100"/><path d="M92 610 L99 580 L106 610Z"/>
+    <rect x="1650" y="600" width="8" height="110"/><path d="M1647 600 L1654 568 L1661 600Z"/>
+    <path d="M1380 700 a38 38 0 0 1 76 0Z"/><path d="M300 712 a30 30 0 0 1 60 0Z"/>
+  </g>
+
+  <!-- Middle layer: the great domed mosque and its minarets -->
+  <g fill="url(#mid)">
+    <rect x="520" y="660" width="360" height="125"/>
+    <path d="M598 660 a102 102 0 0 1 204 0Z"/>
+    <path d="M520 705 a50 50 0 0 1 100 0Z"/>
+    <path d="M780 705 a50 50 0 0 1 100 0Z"/>
+    <path d="M560 678 a40 40 0 0 1 80 0Z"/>
+    <path d="M760 678 a40 40 0 0 1 80 0Z"/>
+    <rect x="696" y="540" width="8" height="30"/>
+    <path d="M692 546 L700 512 L708 546Z"/>
+    <!-- minarets -->
+    <g>
+      <rect x="486" y="560" width="12" height="225"/><path d="M482 560 L492 516 L502 560Z"/><rect x="482" y="600" width="20" height="6"/>
+      <rect x="902" y="560" width="12" height="225"/><path d="M898 560 L908 516 L918 560Z"/><rect x="898" y="600" width="20" height="6"/>
+      <rect x="446" y="610" width="10" height="175"/><path d="M443 610 L451 574 L459 610Z"/><rect x="442" y="644" width="18" height="5"/>
+      <rect x="944" y="610" width="10" height="175"/><path d="M941 610 L949 574 L957 610Z"/><rect x="940" y="644" width="18" height="5"/>
+    </g>
+    <!-- cluster of roofs and domes to the right -->
+    <path d="M980 785 V690 h40 v-24 h30 v30 h50 v-46 h46 v40 h40 v-18 h60 V785Z"/>
+    <path d="M1120 660 a30 30 0 0 1 60 0Z"/>
+    <path d="M0 785 V740 h70 v-24 h40 v30 h60 v-18 h60 v24 h80 v-30 h50 v28 h60 V785Z"/>
+  </g>
+
+  <!-- Near layer: Galata Tower, hillside houses and a second mosque -->
+  <g fill="url(#near)">
+    <rect x="1160" y="560" width="42" height="230"/>
+    <rect x="1150" y="556" width="62" height="16" rx="2"/>
+    <path d="M1154 556 L1181 498 L1208 556Z"/>
+    <rect x="1178" y="470" width="6" height="30"/>
+    <path d="M1000 790 V738 h50 v-22 h40 v34 h52 v-28 h48 V790Z"/>
+    <path d="M1212 790 V742 h50 v-26 h46 v34 h46 v-22 h50 V790Z"/>
+    <path d="M1480 700 a70 70 0 0 1 140 0Z"/>
+    <rect x="1470" y="700" width="160" height="90"/>
+    <path d="M1520 666 a34 34 0 0 1 60 -10 a34 34 0 0 1 0 40Z" opacity="0"/>
+    <rect x="1636" y="610" width="10" height="180"/><path d="M1633 610 L1641 576 L1649 610Z"/><rect x="1632" y="646" width="18" height="5"/>
+    <rect x="1452" y="620" width="10" height="170"/><path d="M1449 620 L1457 586 L1465 620Z"/><rect x="1448" y="654" width="18" height="5"/>
+    <path d="M1660 790 V736 h60 v-22 h40 v30 h60 v-18 h70 v26 h40 V790Z"/>
+    <path d="M0 790 V748 h60 v-20 h50 v28 h60 V790Z"/>
+  </g>
+
+  <!-- Bridge -->
+  <g fill="#6b4f86" opacity="0.9">
+    <rect x="0" y="772" width="1920" height="9"/>
+    <g>
+      <rect x="140" y="780" width="6" height="14"/><rect x="420" y="780" width="6" height="14"/><rect x="700" y="780" width="6" height="14"/>
+      <rect x="980" y="780" width="6" height="14"/><rect x="1260" y="780" width="6" height="14"/><rect x="1540" y="780" width="6" height="14"/>
+      <rect x="1820" y="780" width="6" height="14"/>
+    </g>
+  </g>
+
+  <!-- Water -->
+  <rect y="792" width="1920" height="288" fill="url(#water)"/>
+  <g fill="#fff4d8" opacity="0.5">
+    <rect x="1230" y="812" width="240" height="6" rx="3"/>
+    <rect x="1262" y="836" width="176" height="6" rx="3"/>
+    <rect x="1290" y="862" width="120" height="5" rx="2.5"/>
+    <rect x="1312" y="890" width="78" height="5" rx="2.5"/>
+    <rect x="1330" y="922" width="40" height="4" rx="2"/>
+  </g>
+  <g fill="#ffffff" opacity="0.14">
+    <rect x="120" y="830" width="260" height="3" rx="1.5"/>
+    <rect x="520" y="870" width="320" height="3" rx="1.5"/>
+    <rect x="260" y="930" width="200" height="3" rx="1.5"/>
+    <rect x="1500" y="950" width="300" height="3" rx="1.5"/>
+    <rect x="700" y="1000" width="260" height="3" rx="1.5"/>
+  </g>
+  <!-- Boats -->
+  <g class="boat" fill="#5d4778"><path d="M400 842 h70 l-12 14 h-46Z"/><path d="M432 842 V800 L458 842Z" fill="#f3d9c3"/></g>
+  <g class="boat" fill="#5d4778" style="animation-delay:-2s"><path d="M1060 880 h60 l-10 12 h-40Z"/><path d="M1088 880 V846 L1108 880Z" fill="#f3d9c3"/></g>
+</svg>

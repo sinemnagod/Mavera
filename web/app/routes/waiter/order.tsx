@@ -96,12 +96,12 @@ export default function Order({ loaderData }: Route.ComponentProps) {
       <section aria-label="Menu">
         <div className="flex items-baseline justify-between">
           <h1 className={heading}>Table {table.code}</h1>
-          <Link to="/waiter/floor-plan" className={`text-sm text-stone-400 underline ${focus}`}>
+          <Link to="/waiter/floor-plan" className={`text-sm text-stone-600 underline ${focus}`}>
             Back to floor plan
           </Link>
         </div>
         {table.orderId && (
-          <p className="mt-2 text-sm text-amber-300">
+          <p className="mt-2 text-sm text-amber-700">
             This table already has an order. New items will be added to it.{" "}
             <Link to={`/waiter/ticket/${table.orderId}`} className={`underline ${focus}`}>
               View current ticket
@@ -116,7 +116,7 @@ export default function Order({ loaderData }: Route.ComponentProps) {
               type="button"
               aria-pressed={c === category}
               onClick={() => setCategory(c)}
-              className={`rounded-full px-4 py-1.5 text-sm font-medium ${focus} ${c === category ? "bg-amber-400 text-stone-950" : "bg-stone-800 text-stone-300 hover:bg-stone-700"}`}
+              className={`rounded-full px-4 py-1.5 text-sm font-medium ${focus} ${c === category ? "bg-amber-400 text-stone-950" : "bg-stone-100 text-stone-700 hover:bg-stone-200"}`}
             >
               {c}
             </button>
@@ -131,11 +131,11 @@ export default function Order({ loaderData }: Route.ComponentProps) {
                 <button
                   type="button"
                   onClick={() => add(item)}
-                  className={`flex h-full w-full flex-col items-start gap-1 rounded-xl border border-white/10 bg-stone-900 p-4 text-left hover:border-amber-400/60 hover:bg-stone-800 ${focus}`}
+                  className={`flex h-full w-full flex-col items-start gap-1 rounded-2xl border border-stone-200 bg-white p-4 text-left shadow-sm transition duration-200 hover:-translate-y-1 hover:border-amber-400 hover:shadow-lg active:scale-[0.98] ${focus}`}
                 >
-                  <span className="font-medium text-white">{item.name}</span>
-                  <span className="text-sm text-amber-300">{formatMoney(item.price)}</span>
-                  <span className="text-xs text-stone-400">
+                  <span className="font-medium text-stone-900">{item.name}</span>
+                  <span className="text-sm text-amber-700">{formatMoney(item.price)}</span>
+                  <span className="text-xs text-stone-600">
                     {item.station.toLowerCase()}
                     {item.allergens.length > 0 && ` · contains ${item.allergens.join(", ")}`}
                   </span>
@@ -147,30 +147,30 @@ export default function Order({ loaderData }: Route.ComponentProps) {
 
       {/* The receipt-style ticket. Everything here is amber because none of it is sent yet. */}
       <aside aria-label="Ticket" className={`${card} h-fit space-y-4 font-mono lg:sticky lg:top-6`}>
-        <div className="border-b border-dashed border-white/20 pb-3">
-          <h2 className="text-lg font-semibold text-white">Ticket · {table.code}</h2>
-          <p className="text-xs text-stone-400">{table.covers} covers</p>
+        <div className="border-b border-dashed border-stone-300 pb-3">
+          <h2 className="text-lg font-semibold text-stone-900">Ticket · {table.code}</h2>
+          <p className="text-xs text-stone-600">{table.covers} covers</p>
         </div>
 
         {lines.length === 0 ? (
-          <p className="text-sm text-stone-400">Tap a dish to add it.</p>
+          <p className="text-sm text-stone-600">Tap a dish to add it.</p>
         ) : (
           <ul className="space-y-3">
             {lines.map((line) => (
-              <li key={line.key} className="rounded-lg border border-amber-400/40 bg-amber-950/40 p-3">
+              <li key={line.key} className="animate-pop rounded-lg border border-amber-400/40 bg-amber-50 p-3">
                 <div className="flex items-start justify-between gap-2">
                   <div>
-                    <p className="text-sm font-semibold text-amber-100">{line.item.name}</p>
-                    <p className="text-xs text-amber-300">Not sent yet · {formatMoney(line.item.price * line.quantity)}</p>
+                    <p className="text-sm font-semibold text-amber-900">{line.item.name}</p>
+                    <p className="text-xs text-amber-700">Not sent yet · {formatMoney(line.item.price * line.quantity)}</p>
                   </div>
                   <div className="flex items-center gap-1">
-                    <button type="button" aria-label={`Remove one ${line.item.name}`} onClick={() => change(line.key, -1)} className={`h-8 w-8 rounded-md border border-white/20 text-lg ${focus}`}>
+                    <button type="button" aria-label={`Remove one ${line.item.name}`} onClick={() => change(line.key, -1)} className={`h-8 w-8 rounded-md border border-stone-300 text-lg ${focus}`}>
                       −
                     </button>
                     <span className="w-6 text-center text-sm" aria-label={`${line.quantity} of ${line.item.name}`}>
                       {line.quantity}
                     </span>
-                    <button type="button" aria-label={`Add one ${line.item.name}`} onClick={() => change(line.key, 1)} className={`h-8 w-8 rounded-md border border-white/20 text-lg ${focus}`}>
+                    <button type="button" aria-label={`Add one ${line.item.name}`} onClick={() => change(line.key, 1)} className={`h-8 w-8 rounded-md border border-stone-300 text-lg ${focus}`}>
                       +
                     </button>
                   </div>
@@ -182,7 +182,7 @@ export default function Order({ loaderData }: Route.ComponentProps) {
                       type="button"
                       aria-pressed={line.modifiers.includes(m)}
                       onClick={() => toggleModifier(line.key, m)}
-                      className={`rounded-full border px-2 py-0.5 text-xs ${focus} ${line.modifiers.includes(m) ? "border-amber-300 bg-amber-300 text-stone-950" : "border-white/20 text-stone-300"}`}
+                      className={`rounded-full border px-2 py-0.5 text-xs ${focus} ${line.modifiers.includes(m) ? "border-amber-300 bg-amber-300 text-stone-950" : "border-stone-300 text-stone-700"}`}
                     >
                       {m}
                     </button>
@@ -193,8 +193,8 @@ export default function Order({ loaderData }: Route.ComponentProps) {
           </ul>
         )}
 
-        <fieldset className="border-t border-dashed border-white/20 pt-3">
-          <legend className="text-xs text-stone-400">Flags for the kitchen</legend>
+        <fieldset className="border-t border-dashed border-stone-300 pt-3">
+          <legend className="text-xs text-stone-600">Flags for the kitchen</legend>
           <div className="mt-1 flex flex-wrap gap-1">
             {FLAGS.map((f) => (
               <button
@@ -202,7 +202,7 @@ export default function Order({ loaderData }: Route.ComponentProps) {
                 type="button"
                 aria-pressed={flags.includes(f.id)}
                 onClick={() => toggleFlag(f.id)}
-                className={`rounded-full border px-3 py-1 text-xs ${focus} ${flags.includes(f.id) ? "border-red-300 bg-red-500 text-white" : "border-white/20 text-stone-300"}`}
+                className={`rounded-full border px-3 py-1 text-xs ${focus} ${flags.includes(f.id) ? "border-red-300 bg-red-600 text-white" : "border-stone-300 text-stone-700"}`}
               >
                 {f.label}
               </button>
@@ -210,12 +210,12 @@ export default function Order({ loaderData }: Route.ComponentProps) {
           </div>
         </fieldset>
 
-        <div className="flex items-center justify-between border-t border-dashed border-white/20 pt-3 text-lg font-semibold text-white">
+        <div className="flex items-center justify-between border-t border-dashed border-stone-300 pt-3 text-lg font-semibold text-stone-900">
           <span>Total</span>
           <span>{formatMoney(total)}</span>
         </div>
 
-        <p role="alert" className="min-h-5 text-sm text-red-400">
+        <p role="alert" className="min-h-5 text-sm text-red-700">
           {error}
         </p>
         <button type="button" onClick={send} disabled={lines.length === 0 || sending} className={`${button.primary} w-full py-3 text-base`}>

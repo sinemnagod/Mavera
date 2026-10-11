@@ -34,7 +34,7 @@ export async function clientLoader({ request }: Route.ClientLoaderArgs) {
 function timing(minutes: number) {
   if (minutes < 8) return { label: "On time", style: "bg-emerald-500 text-emerald-950" };
   if (minutes < 15) return { label: "Getting late", style: "bg-amber-400 text-stone-950" };
-  return { label: "Late", style: "bg-red-500 text-white" };
+  return { label: "Late", style: "bg-red-600 text-white" };
 }
 
 export default function Kitchen({ loaderData }: Route.ComponentProps) {
@@ -70,29 +70,30 @@ export default function Kitchen({ loaderData }: Route.ComponentProps) {
         <h1 className={heading}>Ticket rail</h1>
         <TabNav label="Station" basePath="/kitchen" param="station" tabs={STATIONS} activeId={station.id} />
 
-        <p role="alert" className="mt-3 min-h-5 text-sm text-red-400">
+        <p role="alert" className="mt-3 min-h-5 text-sm text-red-700">
           {error}
         </p>
 
         {visible.length === 0 ? (
-          <p className="mt-10 rounded-xl border border-dashed border-white/15 p-10 text-center text-lg text-stone-400">
+          <p className="mt-10 rounded-xl border border-dashed border-stone-300 p-10 text-center text-lg text-stone-600">
             No open tickets{mine ? ` for ${station.label.toLowerCase()}` : ""}. New orders appear here by themselves.
           </p>
         ) : (
           <ul className="mt-4 grid grid-cols-[repeat(auto-fill,minmax(340px,1fr))] gap-5">
-            {visible.map((ticket) => {
+            {visible.map((ticket, index) => {
               const minutes = minutesSince(ticket.createdAt, now);
               const clock = timing(minutes);
               const ready = ticket.status === "READY";
               return (
                 <li
                   key={ticket.id}
-                  className={`flex flex-col rounded-2xl border-2 p-5 ${ready ? "border-emerald-400 bg-emerald-950" : "border-white/15 bg-stone-900"}`}
+                  style={{ animationDelay: `${index * 70}ms` }}
+                  className={`animate-fade-up flex flex-col rounded-2xl border-2 p-5 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-lg ${ready ? "border-emerald-400 bg-emerald-50" : "border-stone-300 bg-white"}`}
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <h2 className="text-3xl font-bold text-white">Table {ticket.tableCode}</h2>
-                      <p className="text-sm text-stone-400">
+                      <h2 className="text-3xl font-bold text-stone-900">Table {ticket.tableCode}</h2>
+                      <p className="text-sm text-stone-600">
                         {ticket.covers} covers · {ticket.status === "NEW" ? "New" : ticket.status === "STARTED" ? "Cooking" : "Ready"}
                       </p>
                     </div>
@@ -105,7 +106,7 @@ export default function Kitchen({ loaderData }: Route.ComponentProps) {
                   {ticket.flags.length > 0 && (
                     <p className="mt-3 flex flex-wrap gap-2">
                       {ticket.flags.map((f) => (
-                        <span key={f} className="rounded-md bg-red-500 px-3 py-1 text-sm font-bold uppercase text-white">
+                        <span key={f} className="rounded-md bg-red-600 px-3 py-1 text-sm font-bold uppercase text-white">
                           ⚠ {f.replace("_", " ")}
                         </span>
                       ))}
@@ -117,15 +118,15 @@ export default function Kitchen({ loaderData }: Route.ComponentProps) {
                       const dimmed = mine !== null && item.station !== mine;
                       return (
                         <li key={item.id} className={dimmed ? "opacity-40" : ""}>
-                          <p className="text-xl font-semibold text-white">
+                          <p className="text-xl font-semibold text-stone-900">
                             {item.quantity} × {item.name}
-                            <span className="ml-2 text-xs font-normal uppercase text-stone-400">{item.station.toLowerCase()}</span>
+                            <span className="ml-2 text-xs font-normal uppercase text-stone-600">{item.station.toLowerCase()}</span>
                           </p>
-                          {item.modifiers.length > 0 && <p className="text-base text-amber-300">{item.modifiers.join(" · ")}</p>}
+                          {item.modifiers.length > 0 && <p className="text-base text-amber-700">{item.modifiers.join(" · ")}</p>}
                           {item.allergens.length > 0 && (
                             <p className="mt-1 flex flex-wrap gap-1">
                               {item.allergens.map((a) => (
-                                <span key={a} className="rounded bg-red-900 px-2 py-0.5 text-xs font-semibold text-red-100">
+                                <span key={a} className="rounded bg-red-100 px-2 py-0.5 text-xs font-semibold text-red-900">
                                   Allergen: {a}
                                 </span>
                               ))}

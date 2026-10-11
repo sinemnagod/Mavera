@@ -43,15 +43,15 @@ export default function SeatDialog({ table, onClose }: SeatDialogProps) {
       ref={dialog}
       onClose={onClose}
       aria-labelledby="seat-title"
-      className="m-auto w-full max-w-sm rounded-xl border border-white/15 bg-stone-900 p-6 text-stone-100 backdrop:bg-black/70"
+      className="m-auto w-full max-w-sm rounded-xl border border-stone-300 bg-white p-6 text-stone-900 backdrop:bg-stone-900/40"
     >
-      <h2 id="seat-title" className="text-lg font-semibold text-white">
+      <h2 id="seat-title" className="text-lg font-semibold text-stone-900">
         Seat table {table?.code}
       </h2>
-      <p className="mt-1 text-sm text-stone-400">This table has {table?.seats} seats.</p>
+      <p className="mt-1 text-sm text-stone-600">This table has {table?.seats} seats.</p>
       <form onSubmit={seat} className="mt-4 space-y-4">
         <div>
-          <label htmlFor="covers" className="mb-1 block text-sm text-stone-300">
+          <label htmlFor="covers" className="mb-1 block text-sm text-stone-700">
             How many guests (covers)?
           </label>
           <input
@@ -64,7 +64,7 @@ export default function SeatDialog({ table, onClose }: SeatDialogProps) {
             className={input}
           />
         </div>
-        <p role="alert" className="min-h-5 text-sm text-red-400">
+        <p role="alert" className="min-h-5 text-sm text-red-700">
           {error}
         </p>
         <div className="flex justify-end gap-2">

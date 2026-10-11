@@ -49,16 +49,16 @@ export default function SpillDialog() {
       <dialog
         ref={dialog}
         aria-labelledby="spill-title"
-        className="m-auto w-full max-w-md rounded-xl border border-white/15 bg-stone-900 p-6 text-stone-100 backdrop:bg-black/70"
+        className="m-auto w-full max-w-md rounded-xl border border-stone-300 bg-white p-6 text-stone-900 backdrop:bg-stone-900/40"
       >
-        <h2 id="spill-title" className="text-lg font-semibold text-white">
+        <h2 id="spill-title" className="text-lg font-semibold text-stone-900">
           Report a spill
         </h2>
-        <p className="mt-1 text-sm text-stone-400">It goes straight to the top of the cleaner's list.</p>
+        <p className="mt-1 text-sm text-stone-600">It goes straight to the top of the cleaner's list.</p>
 
         <form onSubmit={submit} className="mt-4 space-y-4">
           <div>
-            <label htmlFor="spill-area" className="mb-1 block text-sm text-stone-300">
+            <label htmlFor="spill-area" className="mb-1 block text-sm text-stone-700">
               Where?
             </label>
             <select id="spill-area" value={area} onChange={(e) => setArea(e.target.value)} className={input}>
@@ -68,7 +68,7 @@ export default function SpillDialog() {
             </select>
           </div>
           <div>
-            <label htmlFor="spill-description" className="mb-1 block text-sm text-stone-300">
+            <label htmlFor="spill-description" className="mb-1 block text-sm text-stone-700">
               What happened?
             </label>
             <input
@@ -83,8 +83,8 @@ export default function SpillDialog() {
           </div>
 
           <p role="status" className="min-h-5 text-sm">
-            {sent && <span className="text-emerald-400">Reported. The cleaner can see it now.</span>}
-            {error && <span className="text-red-400">{error}</span>}
+            {sent && <span className="text-emerald-700">Reported. The cleaner can see it now.</span>}
+            {error && <span className="text-red-700">{error}</span>}
           </p>
 
           <div className="flex justify-end gap-2">

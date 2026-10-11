@@ -20,8 +20,8 @@ export default function TabNav({ label, basePath, param, tabs, activeId }: TabNa
             key={tab.id}
             to={`${basePath}?${param}=${tab.id}`}
             aria-current={isActive ? "page" : undefined}
-            className={`rounded-full px-4 py-1.5 text-sm font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400 ${
-              isActive ? "bg-amber-400 text-stone-950" : "bg-stone-800 text-stone-300 hover:bg-stone-700"
+            className={`rounded-full px-4 py-1.5 text-sm font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700 ${
+              isActive ? "bg-amber-400 text-stone-950" : "bg-stone-100 text-stone-700 hover:bg-stone-200"
             }`}
           >
             {tab.label}

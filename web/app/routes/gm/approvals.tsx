@@ -37,13 +37,13 @@ export default function Approvals({ loaderData: pending }: Route.ComponentProps)
     <div className="mx-auto max-w-4xl space-y-6 p-6">
       <div>
         <h1 className={heading}>Approvals</h1>
-        <p className="mt-1 text-sm text-stone-400">New cleaning checklists from the store managers. Approved versions become the cleaners' list straight away.</p>
+        <p className="mt-1 text-sm text-stone-600">New cleaning checklists from the store managers. Approved versions become the cleaners' list straight away.</p>
       </div>
 
-      <p role="alert" className="min-h-5 text-sm text-red-400">{error}</p>
+      <p role="alert" className="min-h-5 text-sm text-red-700">{error}</p>
 
       {pending.length === 0 ? (
-        <p className={`${card} text-stone-400`}>Nothing is waiting for approval.</p>
+        <p className={`${card} text-stone-600`}>Nothing is waiting for approval.</p>
       ) : (
         <ul className="space-y-5">
           {pending.map((v) => {
@@ -51,21 +51,21 @@ export default function Approvals({ loaderData: pending }: Route.ComponentProps)
             return (
               <li key={v.id} className={card}>
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h2 className="text-lg font-semibold text-white">
+                  <h2 className="text-lg font-semibold text-stone-900">
                     {v.locationName} · version {v.version}
                   </h2>
-                  <p className="text-sm text-stone-400">
+                  <p className="text-sm text-stone-600">
                     {v.tasks.length} tasks · by {v.submittedBy} on {formatShortDate(v.submittedAt)}
                   </p>
                 </div>
 
                 <details className="mt-3">
-                  <summary className="cursor-pointer text-sm text-amber-300">See the tasks</summary>
+                  <summary className="cursor-pointer text-sm text-amber-700">See the tasks</summary>
                   <div className="mt-3 space-y-3 text-sm">
                     {areas.map((area) => (
                       <div key={area}>
-                        <h3 className="font-semibold text-stone-200">{area}</h3>
-                        <ul className="mt-1 space-y-0.5 text-stone-300">
+                        <h3 className="font-semibold text-stone-800">{area}</h3>
+                        <ul className="mt-1 space-y-0.5 text-stone-700">
                           {v.tasks.filter((t) => t.area === area).map((t) => (
                             <li key={t.id}>{t.dueTime} · {t.description}</li>
                           ))}
@@ -76,7 +76,7 @@ export default function Approvals({ loaderData: pending }: Route.ComponentProps)
                 </details>
 
                 <div className="mt-4">
-                  <label htmlFor={`note-${v.id}`} className="mb-1 block text-sm text-stone-300">Note (required if you reject)</label>
+                  <label htmlFor={`note-${v.id}`} className="mb-1 block text-sm text-stone-700">Note (required if you reject)</label>
                   <input id={`note-${v.id}`} value={notes[v.id] ?? ""} onChange={(e) => setNotes({ ...notes, [v.id]: e.target.value })} className={input} />
                 </div>
                 <div className="mt-3 flex gap-2">

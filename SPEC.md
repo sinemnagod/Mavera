@@ -50,7 +50,7 @@ graph LR
 ## Screens
 
 ### Landing
-Five role buttons with icons, no authentication. Dark, warm, high-end feel. A note marks this as demo mode.
+A header with the Mavera logo, and five cards side by side (they collapse to three, two and one as the screen narrows), one per role, each with an animated person picture. A card leads to that role's own sign-in page (`/login/<role>`), where signing in with an account that belongs to a *different* role shows a warning instead of letting the person in. Both pages float over an illustrated Istanbul skyline. The whole app is **light and warm** (cream paper, white cards, amber accents), with gentle motion that switches off for people who prefer reduced motion. A note marks this as demo mode.
 
 ### Waiter
 | Screen | Purpose |
@@ -87,11 +87,12 @@ Five role buttons with icons, no authentication. Dark, warm, high-end feel. A no
 
 ### Routes
 
-Fourteen routes: landing plus thirteen role screens. Tabs (floor plan sections, kitchen stations) are query parameters on one route, not separate routes.
+Fifteen routes: the landing page, one sign-in page for each role (`/login/:role`), and thirteen role screens. Tabs (floor plan sections, kitchen stations) are query parameters on one route, not separate routes.
 
 | Route | Screen |
 |---|---|
-| `/` | Landing |
+| `/` | Landing: five role cards |
+| `/login/:role` | Sign-in page for one role (`waiter`, `kitchen`, `cleaner`, `store-manager`, `general-manager`) |
 | `/waiter/floor-plan?section=main\|terrace\|family` | Floor plan |
 | `/waiter/order/[tableId]` | Order |
 | `/waiter/ticket/[ticketId]` | Ticket detail |
@@ -181,7 +182,7 @@ The internship's required stack, all of it used:
 |---|---|
 | **TypeScript** | Both the web app and the API |
 | **React** | The screens (`web/`) |
-| **React Router** | Routing for the 14 screens, in SPA mode (`web/`) |
+| **React Router** | Routing for all the screens, in SPA mode (`web/`) |
 | **HTML5 / CSS3** | Semantic markup and styling; Tailwind CSS is added on top for CSS |
 | **NestJS** | The backend (`api/`): controllers, services, guards |
 | **REST API / JSON** | How the web app and the API talk to each other |

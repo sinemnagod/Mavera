@@ -28,7 +28,7 @@ export default function Overview({ loaderData: overview }: Route.ComponentProps)
 
       {totals && period && (
         <section aria-labelledby="kpis">
-          <h2 id="kpis" className="mb-3 text-lg font-semibold text-white">
+          <h2 id="kpis" className="mb-3 text-lg font-semibold text-stone-900">
             All locations, {formatShortDate(period.from)} – {formatShortDate(period.to)}
           </h2>
           <div className="grid grid-cols-[repeat(auto-fit,minmax(190px,1fr))] gap-4">
@@ -43,11 +43,11 @@ export default function Overview({ loaderData: overview }: Route.ComponentProps)
       )}
 
       <section aria-labelledby="compare">
-        <h2 id="compare" className="mb-3 text-lg font-semibold text-white">Compare the five locations</h2>
-        <div className="overflow-x-auto rounded-xl border border-white/10">
+        <h2 id="compare" className="mb-3 text-lg font-semibold text-stone-900">Compare the five locations</h2>
+        <div className="overflow-x-auto rounded-xl border border-stone-200">
           <table className="w-full text-left text-sm">
             <caption className="sr-only">Key numbers for each location this week, compared with last week</caption>
-            <thead className="bg-stone-900 text-stone-300">
+            <thead className="bg-white text-stone-700">
               <tr>
                 <th scope="col" className="px-4 py-3">Location</th>
                 <th scope="col" className="px-4 py-3 text-right">Revenue</th>
@@ -60,23 +60,23 @@ export default function Overview({ loaderData: overview }: Route.ComponentProps)
                 <th scope="col" className="px-4 py-3">Flags</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/10">
+            <tbody className="divide-y divide-stone-200">
               {locations.map((l) => (
                 <tr key={l.id}>
                   <th scope="row" className="px-4 py-3">
-                    <Link to={`/gm/locations/${l.id}`} className={`font-semibold text-amber-300 underline ${focus}`}>
+                    <Link to={`/gm/locations/${l.id}`} className={`font-semibold text-amber-700 underline ${focus}`}>
                       {l.name}
                     </Link>
                   </th>
-                  <td className="px-4 py-3 text-right tabular-nums text-stone-100">{formatMoney(l.revenue)}</td>
-                  <td className={`px-4 py-3 text-right tabular-nums ${l.revenueChangePct < -3 ? "font-semibold text-red-300" : "text-stone-300"}`}>{signed(l.revenueChangePct)}</td>
-                  <td className="px-4 py-3 text-right tabular-nums text-stone-300">{l.covers.toLocaleString("tr-TR")}</td>
-                  <td className="px-4 py-3 text-right tabular-nums text-stone-300">{formatMoney(l.avgSpend)}</td>
-                  <td className={`px-4 py-3 text-right tabular-nums ${l.avgTicketMinutes > 20 ? "font-semibold text-red-300" : "text-stone-300"}`}>{l.avgTicketMinutes} min</td>
-                  <td className={`px-4 py-3 text-right tabular-nums ${l.wastePct > 5 ? "font-semibold text-red-300" : "text-stone-300"}`}>{l.wastePct}%</td>
-                  <td className={`px-4 py-3 text-right tabular-nums ${l.cleaningCompliance < 75 ? "font-semibold text-red-300" : "text-stone-300"}`}>{l.cleaningCompliance}%</td>
-                  <td className="px-4 py-3 text-xs text-stone-300">
-                    {l.lowStock.length > 0 && <span className="mr-1 rounded bg-red-500 px-2 py-0.5 font-semibold text-white">Low: {l.lowStock.map((s) => s.name).join(", ")}</span>}
+                  <td className="px-4 py-3 text-right tabular-nums text-stone-900">{formatMoney(l.revenue)}</td>
+                  <td className={`px-4 py-3 text-right tabular-nums ${l.revenueChangePct < -3 ? "font-semibold text-red-700" : "text-stone-700"}`}>{signed(l.revenueChangePct)}</td>
+                  <td className="px-4 py-3 text-right tabular-nums text-stone-700">{l.covers.toLocaleString("tr-TR")}</td>
+                  <td className="px-4 py-3 text-right tabular-nums text-stone-700">{formatMoney(l.avgSpend)}</td>
+                  <td className={`px-4 py-3 text-right tabular-nums ${l.avgTicketMinutes > 20 ? "font-semibold text-red-700" : "text-stone-700"}`}>{l.avgTicketMinutes} min</td>
+                  <td className={`px-4 py-3 text-right tabular-nums ${l.wastePct > 5 ? "font-semibold text-red-700" : "text-stone-700"}`}>{l.wastePct}%</td>
+                  <td className={`px-4 py-3 text-right tabular-nums ${l.cleaningCompliance < 75 ? "font-semibold text-red-700" : "text-stone-700"}`}>{l.cleaningCompliance}%</td>
+                  <td className="px-4 py-3 text-xs text-stone-700">
+                    {l.lowStock.length > 0 && <span className="mr-1 rounded bg-red-600 px-2 py-0.5 font-semibold text-white">Low: {l.lowStock.map((s) => s.name).join(", ")}</span>}
                     {l.slowDishes.length > 0 && <span className="rounded bg-amber-400 px-2 py-0.5 font-semibold text-stone-950">Slow: {l.slowDishes.map((s) => s.name).join(", ")}</span>}
                   </td>
                 </tr>

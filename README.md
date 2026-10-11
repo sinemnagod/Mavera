@@ -34,7 +34,7 @@ Permissions are checked **on the server**: every API route needs a valid token, 
 
 ## Demo accounts
 
-Sign in at the home page with an email and password.
+Open the home page, pick a role card, and sign in with that role's email and password. (An account from another role is turned away with a warning.)
 
 | Role | Email | Password |
 |---|---|---|
@@ -150,7 +150,9 @@ SPEC.md       what Mavera is and does
 
 ## What is built
 
-Fourteen screens: sign-in, waiter (floor plan, order, ticket), kitchen (ticket rail), cleaner (task queue), store manager (stock, counts, movements, variance, checklist editor) and general manager (overview with the AI briefing, location detail, approvals). Everything reads and writes the real database through the API.
+A landing page with five animated role cards (they sit side by side and collapse to fewer columns on narrower screens), and a separate sign-in page for each role at `/login/<role>`: an account from a different role is turned away with a warning. The look is light and warm, with an illustrated Istanbul skyline behind the landing and sign-in pages and gentle animations (which switch off for people who prefer reduced motion).
+
+The screens behind the sign-in: waiter (floor plan, order, ticket), kitchen (ticket rail), cleaner (task queue), store manager (stock, counts, movements, variance, checklist editor) and general manager (overview with the AI briefing, location detail, approvals). Everything reads and writes the real database through the API.
 
 The history behind the dashboards (ten weeks of sales, stock and cleaning for each location) is generated with a fixed seed and loaded into the database. It has patterns built in so the dashboards and the AI have something real to find: weekend rushes, an underperforming Üsküdar, Bebek running short on lamb, and a slow-prep dish (Kuzu Tandır).
 
@@ -160,7 +162,7 @@ On the GM overview, **Generate briefing** asks a model to read the week's number
 
 ## Screen sizes
 
-Mavera is a workplace tool for tablets and desktops. It is designed from 1024px up, and below that it shows a designed message instead of a broken layout.
+Mavera's work screens are for tablets and desktops. They are designed from 1024px up, and below that they show a designed message instead of a broken layout. The landing and sign-in pages adapt down to phone width.
 
 ## Known limitations
 

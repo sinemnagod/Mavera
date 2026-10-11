@@ -69,7 +69,7 @@ Run typecheck/build, lint and tests before calling anything done.
 
 ```
 web/app/root.tsx          document shell, loading screen, sub-1024px message, 404/error page
-web/app/routes.ts         the route table (14 routes)
+web/app/routes.ts         the route table (15 routes)
 web/app/routes/           one file per screen: home, waiter/, kitchen, cleaner, store/, gm/
 web/app/components/       one component per file
 web/app/lib/              pure helper functions (React-free)
@@ -121,7 +121,7 @@ Kadıköy, Nişantaşı, Bebek, Beşiktaş, Üsküdar. Four roles are scoped to 
 
 ### Sign-in
 
-Email and password. A small set of demo accounts (one per role at Kadıköy, plus a general manager) is listed in the README so reviewers can try each role. Dark, warm, high-end feel.
+Email and password. The landing page has five role cards (animated people, side by side, collapsing with screen size); each leads to `/login/<role>`. Signing in with an account of another role shows a warning and does not sign the person in (this is a courtesy check in the web app; the real permissions are on the API). A small set of demo accounts is listed in the README so reviewers can try each role. The look is **light and warm** (cream, white, amber) with an illustrated skyline (`web/public/backdrop.svg`) behind the landing and sign-in pages; swap in a photo by replacing that file or its reference in `Backdrop.tsx`.
 
 ### Roles and screens
 
@@ -133,7 +133,7 @@ Email and password. A small set of demo accounts (one per role at Kadıköy, plu
 | **Store manager**   | Stock, Counts, Movements, Variance, Checklist editor                                          | Run-out projection                                                                                   |
 | **General manager** | Overview (AI briefing pinned at top), Location detail, Approvals                              | Shift briefing                                                                                       |
 
-Fourteen routes in total: landing/sign-in plus thirteen role screens (3 waiter, 1 kitchen, 1 cleaner, 5 store manager, 3 GM). Only the GM's location detail has `:locationId` in its URL.
+Fifteen routes in total: the landing page, `/login/:role`, plus thirteen role screens (3 waiter, 1 kitchen, 1 cleaner, 5 store manager, 3 GM). Only the GM's location detail has `:locationId` in its URL.
 
 ### Cross-role flows
 
@@ -207,7 +207,7 @@ Keep Zod schemas small and honest: every optional field needs a plan for how it 
 
 ## Responsive
 
-Desktop and tablet only, by design. Kitchen displays and five-location dashboards are not phone experiences. Below 1024px the app shows a designed message ("built for tablet and desktop"); the AI chat panel is meant to stay usable down to 375px. Built with `repeat(auto-fit, minmax(...))` grids rather than breakpoint jumps.
+Desktop and tablet only, by design. Kitchen displays and five-location dashboards are not phone experiences. Below 1024px the work screens show a designed message ("built for tablet and desktop"); the landing and sign-in pages adapt all the way down to phone width. Built with `repeat(auto-fit, minmax(...))` grids rather than breakpoint jumps.
 
 ---
 
@@ -233,6 +233,6 @@ Desktop and tablet only, by design. Kitchen displays and five-location dashboard
   - **When the owner asks _how_ to do something, lead them through it; don't do it for them.** Read-only checks are fine. Do the work only when asked to ("do it", "please change").
   - Let the owner hand-write one core piece per step; review it rather than replacing it.
   - `STUDY_PLAN.md` is the owner's learning path (private, git-ignored). Point to its modules when a new concept comes up.
-- Verify visual changes in the browser, including with the colour scheme forced to light, since the app must stay dark.
+- Verify visual changes in the browser. Check text contrast with numbers, not by eye (4.5:1 for normal text). Motion is CSS-only (`app.css`), switches off under `prefers-reduced-motion`, and needs no extra library. Colours use Tailwind's `stone` (neutrals) and `amber` (accent); don't reintroduce dark-theme classes.
 - When changing shared state or a cross-role flow, say which of the seven flows it touches.
 - If asked for something in the out-of-scope list, remind the owner before building it.

@@ -5,6 +5,7 @@ import { index, route, type RouteConfig } from "@react-router/dev/routes";
 // GM's location detail takes a :locationId.
 export default [
   index("routes/home.tsx"),
+  route("login/:role", "routes/login.tsx"),
 
   route("waiter", "routes/waiter/layout.tsx", [
     index("routes/waiter/redirect.tsx"),

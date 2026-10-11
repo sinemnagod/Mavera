@@ -20,11 +20,11 @@ The required stack — every item must really be used:
 
 **TypeScript · NestJS · PostgreSQL · Prisma · JWT · React · React Router · HTML5/CSS3 · REST API/JSON · Git/GitHub**
 
-Added on top (owner-approved): **Tailwind CSS v4** for styling, the **Vercel AI SDK** with **Claude** for the AI tools, and **Zod** for validating input and AI output. Redux Toolkit is installed in `web/` but live data is moving to the API; remove it once nothing uses it.
+Added on top (owner-approved): **Tailwind CSS v4** for styling, the **Vercel AI SDK** for the AI tool (talking to any model through **OpenRouter**, with a free model as the default), and **Zod** for validating input and AI output. Redux has been removed: the API is the source of truth, and screens refresh from it by polling.
 
 ```
 Browser  ──REST/JSON + JWT──▶  NestJS API (api/)  ──Prisma──▶  PostgreSQL (hosted on Supabase)
- web/ (React + React Router, SPA)                  └──▶ Claude (API key lives only here)
+ web/ (React + React Router, SPA)                  └──▶ AI model via OpenRouter (key lives only here)
 ```
 
 - **`web/`** — React 19 + React Router v7 in framework mode with `ssr: false` (a single-page app), built with Vite. Data comes from the API.
@@ -58,6 +58,10 @@ Two apps, two terminals. Run web commands inside `web/` and API commands inside 
 
 - `npm run start:dev` — API with auto-reload (default port 3000)
 - `npm run build` / `npm run lint` / `npm test`
+- `npm run seed:data` — regenerate the seed JSON in `prisma/seed-data/` (deterministic; output should not change)
+- `npm run db:generate` — regenerate the Prisma client after editing the schema
+- `npm run db:migrate` — create and apply a migration (needs `api/.env`)
+- `npm run db:seed` — wipe and refill the database from the seed JSON
 
 Run typecheck/build, lint and tests before calling anything done.
 
@@ -69,11 +73,15 @@ web/app/routes.ts         the route table (14 routes)
 web/app/routes/           one file per screen: home, waiter/, kitchen, cleaner, store/, gm/
 web/app/components/       one component per file
 web/app/lib/              pure helper functions (React-free)
-web/app/store/            Redux (being phased out for live data)
-web/app/data/             old generated seed JSON, until the screens read from the API
-web/scripts/              the seed generator (to move into api/prisma/)
+web/app/hooks/            React hooks: usePolling (refresh from the API), useNow (live timers)
+web/app/lib/              API client, sign-in session, role guard, formatting, shared class names, API types
 api/src/                  NestJS code: modules, controllers, services, guards
-api/prisma/               (planned) schema.prisma, migrations, seed
+api/src/auth/password.ts  password hashing (built-in scrypt, no extra package)
+api/src/seed.ts           loads the seed data into the database
+api/src/generated/        Prisma's generated client (git-ignored; made by `npm run db:generate`)
+api/prisma/schema.prisma  the database design
+api/prisma/seed-data/     generated seed JSON (made by `npm run seed:data`)
+api/prisma.config.ts      Prisma settings (migrations use DIRECT_URL)
 ```
 
 In `web/`, the import alias `~/` means `web/app/`.
@@ -95,7 +103,7 @@ In `web/`, the import alias `~/` means `web/app/`.
 
 ## Hard rules
 
-1. **Secrets never reach the browser or the repo.** The Anthropic API key, the database URL, and the JWT secret live only in `api/.env`. Nothing secret goes in `web/`, and nothing secret gets a `VITE_` prefix (Vite ships every `VITE_` variable to the browser). Never paste a secret into chat or commit a `.env` file.
+1. **Secrets never reach the browser or the repo.** The AI provider key (`OPENROUTER_API_KEY`), the database URL, and the JWT secret live only in `api/.env` (and in Render's settings when deployed). Nothing secret goes in `web/`, and nothing secret gets a `VITE_` prefix (Vite ships every `VITE_` variable to the browser). Never paste a secret into chat or commit a `.env` file.
 2. **Passwords are hashed** (never stored or logged in plain text) and never returned by the API.
 3. **Every API route except sign-in requires a valid JWT**, and role and location permissions are checked on the server for every read and write.
 4. **Every interactive element is a real `<button>` or `<a>`** with an accessible name and a visible focus state. No `<div onClick>`.
@@ -158,7 +166,7 @@ Single sign-on, password reset, email verification · payments · bill splitting
 
 Everything lives in **PostgreSQL**, accessed only through the NestJS API with Prisma. A seed script loads it; re-running the seed restores the clean state.
 
-**Seed source** — generated deterministically by `scripts/generate-seed.mjs` (fixed seed `20260821`, byte-identical on every run) into JSON, then loaded into the database. To change the data, change the generator and re-run it; never hand-edit the output.
+**Seed source** — generated deterministically by `api/prisma/generate-seed-data.mjs` (fixed seed `20260821`, byte-identical on every run) into JSON, then loaded into the database. To change the data, change the generator and re-run it; never hand-edit the output.
 
 | Seed file               | Contents                                                                                                                                                                                                                                                               |
 | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -183,7 +191,7 @@ Inventory follows real practice: ~20 key ingredients counted **periodically**, n
 
 ## AI
 
-One NestJS endpoint in `api/` (`POST /ai/chat`) streams from Claude and exposes three tools. The API key lives in `api/.env` only.
+One NestJS endpoint in `api/` (`POST /ai/briefing`, GM only) streams from a model through OpenRouter (default `nvidia/nemotron-3-super-120b-a12b:free`, set with `AI_MODEL`). The key lives in `api/.env` only. `AI_MOCK=1` swaps in a rule-based demo stream for development without a key. Each user is limited to 8 briefings per 10 minutes.
 
 | Tool               | Returns                                                                          |
 | ------------------ | -------------------------------------------------------------------------------- |
@@ -193,7 +201,7 @@ One NestJS endpoint in `api/` (`POST /ai/chat`) streams from Claude and exposes 
 
 **The GM briefing must output decisions, not summaries.** "Prep 40 more portions; Bebek is short on lamb by Thursday" — not a restatement of the charts.
 
-Keep Zod schemas small and honest: every optional field needs a plan for how it renders when missing. **Priority:** at least one tool, fully built with all four states and a working retry, before the other two.
+Keep Zod schemas small and honest: every optional field needs a plan for how it renders when missing. **Status:** the shift briefing is built, with all four states (input streaming, input available, output available, output error with a working retry). The kitchen queue and run-out tools are not built.
 
 ---
 
@@ -203,21 +211,15 @@ Desktop and tablet only, by design. Kitchen displays and five-location dashboard
 
 ---
 
-## Plan to the deadline (2026-10-11, 23:59)
+## Status (deadline: Sunday 2026-10-11, 23:59)
 
-| Day            | Goal                                                                                                       |
-| -------------- | ---------------------------------------------------------------------------------------------------------- |
-| Wed 7 Oct      | Split into `web/` + `api/` (done). Supabase Postgres, Prisma schema, seed everything into the database.   |
-| Thu 8 Oct      | Sign-in with JWT, roles and locations enforced on the server. Waiter floor plan reading from the API.      |
-| Fri 9 Oct      | Order → kitchen ticket → ready (flows 1–2), with polling.                                                  |
-| Sat 10 Oct     | Spill → cleaner queue (flow 3). One AI tool. First deploy (web as static site, API on a Node host).        |
-| Sun 11 Oct     | README with demo accounts, final deploy, fixes. Screens not reached stay as clear placeholders.            |
+**Built and checked in a browser against the real database:** sign-in with JWT and server-side roles and locations; flows 1–4 and 6 (waiter → kitchen → waiter, spill → cleaner, checklist → GM approval → cleaner, completions); all 14 screens, with the stock, variance and GM numbers computed from the seeded history (flow 5 is the variance screen); the GM's AI shift briefing with all four states.
 
-If time runs short, cut in this order: the three less-central store screens (counts, movements, checklist editor) → location detail → the second and third AI tools. **Protect:** working sign-in, the order → kitchen flow, one AI tool, the deployed link, the README.
+**Not done:** automated tests, a formal accessibility audit, the kitchen-queue and run-out AI tools, live push updates. Add-more on an existing order exists, but there is no per-station ticket state.
 
-**Tests, accessibility and Lighthouse are not required now.** Do them only if time remains after the project works. Still write semantic, labelled HTML as you go — it costs almost nothing.
+**Hosting:** the web app (static files) on Vercel; the NestJS API on **Render** (free plan; it sleeps when idle, so open it a minute before any live demo); the database on Supabase. `render.yaml` and `web/vercel.json` hold the settings, and the README has the steps.
 
-**Open decision:** where the NestJS API is hosted (Vercel suits the static web app, not a long-running Node server).
+**Reset the demo to its clean state:** `cd api && npm run db:seed`.
 
 ---
 

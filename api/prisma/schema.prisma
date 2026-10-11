@@ -1,0 +1,361 @@
+// The design of Mavera's database. Each `model` becomes a table.
+
+generator client {
+  provider            = "prisma-client"
+  output              = "../src/generated/prisma"
+  moduleFormat        = "esm"
+  importFileExtension = "js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ---------------------------------------------------------------------------
+// Fixed lists of choices
+// ---------------------------------------------------------------------------
+
+enum Role {
+  WAITER
+  KITCHEN
+  CLEANER
+  STORE_MANAGER
+  GENERAL_MANAGER
+}
+
+enum Station {
+  GRILL
+  COLD
+  DESSERT
+}
+
+enum TableStatus {
+  FREE
+  SEATED
+  ORDERED
+  READY
+  CHECK_REQUESTED
+}
+
+enum OrderStatus {
+  OPEN
+  SENT
+  CLOSED
+}
+
+enum TicketStatus {
+  NEW
+  STARTED
+  READY
+  BUMPED
+}
+
+enum MovementReason {
+  RECEIVED
+  USED
+  WASTED
+  TRANSFERRED
+  STAFF_MEAL
+}
+
+enum ChecklistStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+// ---------------------------------------------------------------------------
+// People and places
+// ---------------------------------------------------------------------------
+
+model Location {
+  id   String @id // a short name such as "kadikoy"
+  name String
+
+  users             User[]
+  tables            DiningTable[]
+  orders            Order[]
+  checklistVersions ChecklistVersion[]
+  taskCompletions   TaskCompletion[]
+  stockCounts       StockCount[]
+  stockMovements    StockMovement[]
+  dailySales        DailySales[]
+  itemPrepStats     ItemPrepStat[]
+  prepTimeBuckets   PrepTimeBucket[]
+  cleaningDays      CleaningDay[]
+  spillReports      SpillReport[]
+  
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         Role
+  locationId   String? // empty for the general manager, who sees every location
+  createdAt    DateTime @default(now())
+
+  location            Location?          @relation(fields: [locationId], references: [id])
+  ordersCreated       Order[]
+  checklistsSubmitted ChecklistVersion[] @relation("SubmittedBy")
+  checklistsDecided   ChecklistVersion[] @relation("DecidedBy")
+  taskCompletions     TaskCompletion[]
+  spillsReported      SpillReport[]      @relation("ReportedBy")
+  spillsResolved      SpillReport[]      @relation("ResolvedBy")
+}
+
+// ---------------------------------------------------------------------------
+// The floor, orders and the kitchen (flows 1 and 2)
+// ---------------------------------------------------------------------------
+
+model DiningTable {
+  id         String      @id @default(uuid())
+  locationId String
+  code       String // what staff say out loud: "M1", "T4", "F2"
+  section    String // main, terrace or family
+  seats      Int
+  status     TableStatus @default(FREE)
+  covers     Int? // how many guests are seated now
+
+  location Location @relation(fields: [locationId], references: [id])
+  orders   Order[]
+
+  @@unique([locationId, code])
+}
+
+model MenuItem {
+  id          String   @id // a short name such as "adana"
+  name        String
+  category    String
+  price       Int // Turkish lira
+  station     Station
+  allergens   String[]
+  prepMinutes Int
+
+  recipeLines RecipeLine[]
+  orderItems  OrderItem[]
+  prepStats   ItemPrepStat[]
+}
+
+model Order {
+  id          String      @id @default(uuid())
+  locationId  String
+  tableId     String
+  createdById String
+  status      OrderStatus @default(OPEN)
+  flags       String[] // ALLERGY, RUSH, VIP, LARGE_PARTY
+  covers      Int
+  createdAt   DateTime    @default(now())
+  sentAt      DateTime?
+  closedAt    DateTime?
+
+  location  Location    @relation(fields: [locationId], references: [id])
+  table     DiningTable @relation(fields: [tableId], references: [id])
+  createdBy User        @relation(fields: [createdById], references: [id])
+  items     OrderItem[]
+  ticket    Ticket?
+}
+
+model OrderItem {
+  id         String   @id @default(uuid())
+  orderId    String
+  menuItemId String
+  quantity   Int
+  modifiers  String[]
+  note       String?
+
+  order    Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  menuItem MenuItem @relation(fields: [menuItemId], references: [id])
+}
+
+model Ticket {
+  id        String       @id @default(uuid())
+  orderId   String       @unique // one ticket per order
+  status    TicketStatus @default(NEW)
+  createdAt DateTime     @default(now())
+  startedAt DateTime?
+  readyAt   DateTime?
+  bumpedAt  DateTime?
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
+
+// ---------------------------------------------------------------------------
+// Stock (flow 5)
+// ---------------------------------------------------------------------------
+
+model Ingredient {
+  id           String @id // a short name such as "lamb"
+  name         String
+  unit         String
+  costPerUnit  Float
+  parLevel     Float // the ideal amount to have on the shelf
+  reorderPoint Float // below this, order more
+
+  recipeLines    RecipeLine[]
+  stockCounts    StockCount[]
+  stockMovements StockMovement[]
+}
+
+model RecipeLine {
+  id           Int    @id @default(autoincrement())
+  menuItemId   String
+  ingredientId String
+  quantity     Float // per portion
+
+  menuItem   MenuItem   @relation(fields: [menuItemId], references: [id])
+  ingredient Ingredient @relation(fields: [ingredientId], references: [id])
+
+  @@unique([menuItemId, ingredientId])
+}
+
+model StockCount {
+  id           Int      @id @default(autoincrement())
+  locationId   String
+  ingredientId String
+  weekEnding   DateTime @db.Date
+  counted      Float
+  countedBy    String
+
+  location   Location   @relation(fields: [locationId], references: [id])
+  ingredient Ingredient @relation(fields: [ingredientId], references: [id])
+
+  @@unique([locationId, ingredientId, weekEnding])
+}
+
+model StockMovement {
+  id           Int            @id @default(autoincrement())
+  locationId   String
+  ingredientId String
+  quantity     Float // positive = stock in, negative = stock out
+  reason       MovementReason
+  timestamp    DateTime
+  note         String?
+
+  location   Location   @relation(fields: [locationId], references: [id])
+  ingredient Ingredient @relation(fields: [ingredientId], references: [id])
+
+  @@index([locationId, timestamp])
+}
+
+// ---------------------------------------------------------------------------
+// Cleaning (flows 3, 4 and 6)
+// ---------------------------------------------------------------------------
+
+model ChecklistVersion {
+  id            String          @id @default(uuid())
+  locationId    String
+  version       Int
+  status        ChecklistStatus @default(PENDING)
+  submittedById String
+  submittedAt   DateTime        @default(now())
+  decidedById   String?
+  decidedAt     DateTime?
+  note          String?
+
+  location    Location        @relation(fields: [locationId], references: [id])
+  submittedBy User            @relation("SubmittedBy", fields: [submittedById], references: [id])
+  decidedBy   User?           @relation("DecidedBy", fields: [decidedById], references: [id])
+  tasks       ChecklistTask[]
+
+  @@unique([locationId, version])
+}
+
+model ChecklistTask {
+  id          String @id @default(uuid())
+  versionId   String
+  area        String
+  description String
+  dueTime     String // "HH:MM"
+  frequency   String @default("daily")
+
+  version     ChecklistVersion @relation(fields: [versionId], references: [id], onDelete: Cascade)
+  completions TaskCompletion[]
+}
+
+model TaskCompletion {
+  id            String   @id @default(uuid())
+  locationId    String
+  taskId        String
+  completedById String
+  completedAt   DateTime @default(now())
+
+  location    Location      @relation(fields: [locationId], references: [id])
+  task        ChecklistTask @relation(fields: [taskId], references: [id])
+  completedBy User          @relation(fields: [completedById], references: [id])
+}
+
+model SpillReport {
+  id           String    @id @default(uuid())
+  locationId   String
+  area         String
+  description  String
+  reportedById String
+  reportedAt   DateTime  @default(now())
+  resolved     Boolean   @default(false)
+  resolvedById String?
+  resolvedAt   DateTime?
+
+  location   Location @relation(fields: [locationId], references: [id])
+  reportedBy User     @relation("ReportedBy", fields: [reportedById], references: [id])
+  resolvedBy User?    @relation("ResolvedBy", fields: [resolvedById], references: [id])
+
+  @@index([locationId, resolved])
+}
+
+// ---------------------------------------------------------------------------
+// History for the dashboards (flows 5, 6 and 7): ten weeks, already summarised
+// ---------------------------------------------------------------------------
+
+model DailySales {
+  id               Int      @id @default(autoincrement())
+  locationId       String
+  date             DateTime @db.Date
+  revenue          Int
+  covers           Int
+  orders           Int
+  avgTicketMinutes Float
+  hourlyCovers     Json // 12 numbers, starting at 11:00
+  itemsSold        Json // { "adana": 31, ... }
+
+  location Location @relation(fields: [locationId], references: [id])
+
+  @@unique([locationId, date])
+}
+
+model ItemPrepStat {
+  id         Int    @id @default(autoincrement())
+  locationId String
+  menuItemId String
+  avgMinutes Float
+  p90Minutes Float
+
+  location Location @relation(fields: [locationId], references: [id])
+  menuItem MenuItem @relation(fields: [menuItemId], references: [id])
+
+  @@unique([locationId, menuItemId])
+}
+
+model PrepTimeBucket {
+  id         Int    @id @default(autoincrement())
+  locationId String
+  label      String
+  count      Int
+  position   Int
+
+  location Location @relation(fields: [locationId], references: [id])
+}
+
+model CleaningDay {
+  id         Int      @id @default(autoincrement())
+  locationId String
+  date       DateTime @db.Date
+  due        Int
+  completed  Int
+  onTime     Int
+
+  location Location @relation(fields: [locationId], references: [id])
+
+  @@unique([locationId, date])
+}

@@ -32,6 +32,8 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# ...but the examples are safe to commit: they contain no real values.
+!.env.example
 
 # vercel
 .vercel
@@ -41,3 +43,6 @@ yarn-error.log*
 
 # personal study notes, not part of the project
 STUDY_PLAN.md
+
+# generated Prisma client (rebuilt by `npm run db:generate`)
+api/src/generated/

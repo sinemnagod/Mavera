@@ -1,0 +1,24 @@
+# Render "Blueprint": describes the API service so it can be created in a few clicks.
+services:
+  - type: web
+    name: mavera-api
+    runtime: node
+    plan: free
+    rootDir: api
+    # --include=dev: the build needs Nest and Prisma, which are development dependencies.
+    buildCommand: npm install --include=dev && npm run build
+    startCommand: npm run start:prod
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        sync: false
+      - key: WEB_ORIGIN
+        sync: false
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: AI_MODEL
+        value: nvidia/nemotron-3-super-120b-a12b:free

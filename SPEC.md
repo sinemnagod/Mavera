@@ -134,7 +134,7 @@ Deliberate patterns are baked into the seed data — weekend rushes, one underpe
 
 ## AI features
 
-One NestJS endpoint (`api/`, route `POST /ai/chat`) streams from Claude and exposes three tools. The Claude API key lives only in the API's environment and never reaches the browser.
+One NestJS endpoint (`api/`) streams from a language model (reached through OpenRouter, so the model can be swapped) and exposes the tools below. The provider key lives only in the API's environment and never reaches the browser. Of the three tools, the **shift briefing** is built; the other two are planned.
 
 | Role | Tool | Returns | Why AI |
 |---|---|---|---|
@@ -190,7 +190,7 @@ The internship's required stack, all of it used:
 | **JWT** | Login: the API signs a token, and a guard checks it on every request |
 | **Git / GitHub** | Version control, with Conventional Commits |
 
-Extras on top: Tailwind CSS (styling), the Vercel AI SDK with Claude (the three AI tools), Zod (validating inputs and AI output). The web app is a **single-page app**: the browser downloads it once and then calls the API. Passwords are hashed, and permissions (role and location) are checked on the server, not in the browser.
+Extras on top: Tailwind CSS (styling), the Vercel AI SDK with OpenRouter (the AI tools), Zod (validating inputs and AI output). The web app is a **single-page app**: the browser downloads it once and then calls the API. Passwords are hashed, and permissions (role and location) are checked on the server, not in the browser.
 
 ## Success criteria
 

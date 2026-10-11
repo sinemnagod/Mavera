@@ -9,7 +9,6 @@ import {
 } from "react-router";
 
 import type { Route } from "./+types/root";
-import StoreProvider from "~/components/StoreProvider";
 import "./app.css";
 
 export function meta() {
@@ -50,7 +49,7 @@ export function HydrateFallback() {
 
 export default function App() {
   return (
-    <StoreProvider>
+    <>
       <div className="hidden lg:flex lg:flex-1 lg:flex-col">
         <Outlet />
       </div>
@@ -64,7 +63,7 @@ export default function App() {
           screen gives them. Open Mavera on a tablet or a larger display.
         </p>
       </div>
-    </StoreProvider>
+    </>
   );
 }
 

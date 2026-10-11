@@ -1,4 +1,4 @@
-// Generates the read-only seed data in src/data/. Run with `npm run seed`.
+// Generates the seed data in api/prisma/seed-data/. Run with `npm run seed:data`.
 // Same SEED in, byte-identical JSON out — so every reviewer sees the same restaurants.
 
 import { mkdirSync, writeFileSync } from "node:fs";
@@ -11,7 +11,7 @@ const WEEKS = 10;
 const DAYS = WEEKS * 7;
 const BASE_COVERS = 230; // covers on an average day at a location with covers multiplier 1.0
 
-const OUT_DIR = join(dirname(fileURLToPath(import.meta.url)), "..", "app", "data");
+const OUT_DIR = join(dirname(fileURLToPath(import.meta.url)), "seed-data");
 
 // ---------------------------------------------------------------------------
 // Random numbers and small helpers

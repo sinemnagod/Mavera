@@ -1,6 +1,7 @@
 import { Outlet } from "react-router";
 import RoleTopBar from "~/components/RoleTopBar";
-import { HOME_LOCATION } from "~/lib/home-location";
+import { requireRole } from "~/lib/auth";
+import type { Route } from "./+types/layout";
 
 const LINKS = [
   { to: "/store/stock", label: "Stock" },
@@ -10,10 +11,14 @@ const LINKS = [
   { to: "/store/checklist", label: "Checklist editor" },
 ];
 
-export default function StoreLayout() {
+export function clientLoader() {
+  return { user: requireRole("STORE_MANAGER") };
+}
+
+export default function StoreLayout({ loaderData }: Route.ComponentProps) {
   return (
     <div className="flex flex-1 flex-col">
-      <RoleTopBar roleName="Store manager" location={HOME_LOCATION.name} links={LINKS} showReportSpill />
+      <RoleTopBar roleName="Store manager" user={loaderData.user} links={LINKS} showReportSpill />
       <div className="flex-1">
         <Outlet />
       </div>

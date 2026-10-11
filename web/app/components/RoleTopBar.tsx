@@ -1,22 +1,30 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import SpillDialog from "~/components/SpillDialog";
+import { clearSession } from "~/lib/session";
+import type { SessionUser } from "~/lib/types";
+import { focus } from "~/lib/ui";
 
 interface RoleTopBarProps {
   roleName: string;
-  location?: string;
+  user: SessionUser;
   links?: { to: string; label: string }[];
   showReportSpill?: boolean;
 }
 
-export default function RoleTopBar({ roleName, location, links = [], showReportSpill = false }: RoleTopBarProps) {
+export default function RoleTopBar({ roleName, user, links = [], showReportSpill = false }: RoleTopBarProps) {
+  const navigate = useNavigate();
+
+  function signOut() {
+    clearSession();
+    navigate("/");
+  }
+
   return (
     <header className="flex flex-wrap items-center gap-4 border-b border-white/10 bg-stone-950 px-6 py-4 text-stone-100">
-      <Link to="/" className="text-sm font-semibold tracking-wide text-amber-400">
-        Mavera
-      </Link>
+      <span className="text-sm font-semibold tracking-wide text-amber-400">Mavera</span>
 
-      <span className="text-sm text-stone-400">
-        {roleName}
-        {location ? ` · ${location}` : ""}
+      <span className="text-sm text-stone-300">
+        {roleName} · {user.locationName ?? "All locations"}
       </span>
 
       {links.length > 0 && (
@@ -25,7 +33,7 @@ export default function RoleTopBar({ roleName, location, links = [], showReportS
             <Link
               key={link.to}
               to={link.to}
-              className="rounded-full px-3 py-1 text-stone-300 hover:bg-white/10 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400"
+              className={`rounded-full px-3 py-1 text-stone-300 hover:bg-white/10 hover:text-white ${focus}`}
             >
               {link.label}
             </Link>
@@ -33,14 +41,17 @@ export default function RoleTopBar({ roleName, location, links = [], showReportS
         </nav>
       )}
 
-      {showReportSpill && (
+      <div className="ml-auto flex items-center gap-3">
+        {showReportSpill && <SpillDialog />}
+        <span className="hidden text-sm text-stone-400 xl:inline">{user.name}</span>
         <button
           type="button"
-          className="ml-auto rounded-full bg-red-600/90 px-4 py-1.5 text-sm font-medium text-white hover:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400"
+          onClick={signOut}
+          className={`rounded-full border border-white/15 px-3 py-1.5 text-sm text-stone-300 hover:bg-white/10 ${focus}`}
         >
-          Report spill
+          Sign out
         </button>
-      )}
+      </div>
     </header>
   );
 }

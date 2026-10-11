@@ -1,4 +1,4 @@
-import { HttpException, Injectable, ServiceUnavailableException } from '@nestjs/common';
+import { HttpException, Injectable, Logger, ServiceUnavailableException } from '@nestjs/common';
 import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
 import {
   createUIMessageStream,
@@ -21,8 +21,20 @@ Rules:
 - Never restate the dashboard. Do not invent numbers or locations that are not in the facts.
 - Order actions by urgency: now, today, this_week. Give 3 to 5 actions.
 - Connect a shortage to the dishes it affects when the facts allow it.
-- Use plain, short sentences.
+- Use plain, short sentences, written for a restaurant manager. Say "reorder point" and "average ticket time", never raw field names like reorderPoint or avgTicketMinutes.
+- Only give reasons that follow from the facts. Do not invent rules, regulations, promotions or numbers.
 Always respond by calling the shiftBriefing tool exactly once.`;
+
+// Pulls the useful facts out of an AI SDK error (status code and the provider's own message).
+function describeError(error: unknown): string {
+  if (!(error instanceof Error)) return String(error);
+  const details = error as Error & { statusCode?: number; responseBody?: string; cause?: unknown };
+  const parts = [error.message];
+  if (details.statusCode) parts.push(`status ${details.statusCode}`);
+  if (details.responseBody) parts.push(`provider said: ${details.responseBody.slice(0, 400)}`);
+  if (details.cause instanceof Error) parts.push(`cause: ${details.cause.message}`);
+  return parts.join(' | ');
+}
 
 const LIMIT = 8;
 const WINDOW_MS = 10 * 60 * 1000;
@@ -32,6 +44,7 @@ const DEFAULT_MODEL = 'nvidia/nemotron-3-super-120b-a12b:free';
 export class AiService {
   // Remembers when each user last asked, so one account cannot burn through the AI quota.
   private readonly recent = new Map<string, number[]>();
+  private readonly logger = new Logger(AiService.name);
 
   constructor(private readonly gm: GmService) {}
 
@@ -68,18 +81,22 @@ export class AiService {
           execute: async (input) => input,
         }),
       },
-      toolChoice: 'required',
+      toolChoice: { type: 'tool', toolName: 'shiftBriefing' },
       stopWhen: isStepCount(1),
-      maxOutputTokens: 1500,
-      abortSignal: AbortSignal.any([signal, AbortSignal.timeout(60_000)]),
+      // Reasoning models spend many tokens thinking before they answer, so leave plenty of room.
+      maxOutputTokens: 8000,
+      abortSignal: AbortSignal.any([signal, AbortSignal.timeout(120_000)]),
     });
 
     await pipeUIMessageStreamToResponse({
       response,
       stream: toUIMessageStream({
         stream: result.stream,
-        // Never send raw provider errors (they can contain details) to the browser.
-        onError: () => 'The AI could not produce a briefing right now.',
+        // The browser only gets a safe sentence. The real reason goes to the server log.
+        onError: (error) => {
+          this.logger.error(`Briefing failed: ${describeError(error)}`);
+          return 'The AI could not produce a briefing right now.';
+        },
       }),
     });
   }

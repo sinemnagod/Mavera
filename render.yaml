@@ -4,6 +4,8 @@ services:
     name: mavera-api
     runtime: node
     plan: free
+    # Same region as the Supabase database (Frankfurt), so each query is fast.
+    region: frankfurt
     rootDir: api
     # --include=dev: the build needs Nest and Prisma, which are development dependencies.
     buildCommand: npm install --include=dev && npm run build

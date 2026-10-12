@@ -9,7 +9,7 @@ A restaurant operations system for a five-location restaurant group in Istanbul 
 
 ![Mavera landing page: five animated role cards floating over an illustrated Istanbul skyline](docs/screenshots/landing.png)
 
-**Live demo:** [](https://mavera-ruddy.vercel.app)
+**Live demo:** (https://mavera-ruddy.vercel.app)
 
 The web app runs on Vercel, the API on Render (Frankfurt) and the database on Supabase. The API is on a free plan and **sleeps when idle**, so the first request after a pause, such as the first sign-in, can take about a minute. Sign in with a demo account from the table below.
 

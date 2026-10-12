@@ -7,21 +7,25 @@ A restaurant operations system for a five-location restaurant group in Istanbul 
 - A **store manager** edits the daily cleaning checklist, the **general manager** approves it, and it becomes the cleaner's list.
 - Stock counts, sales and cleaning records feed the **general manager's** dashboards, and an **AI briefing** that says what to decide today.
 
-**Live demo:** _add your Vercel link here_ (the API sleeps when idle, so the first request after a pause can take about a minute)
+![Mavera landing page: five animated role cards floating over an illustrated Istanbul skyline](docs/screenshots/landing.png)
+
+**Live demo:** [](https://mavera-ruddy.vercel.app)
+
+The web app runs on Vercel, the API on Render (Frankfurt) and the database on Supabase. The API is on a free plan and **sleeps when idle**, so the first request after a pause, such as the first sign-in, can take about a minute. Sign in with a demo account from the table below.
 
 ## Stack
 
-| Technology | Where it is used |
-|---|---|
-| TypeScript | The web app and the API |
-| React + React Router (v7, single-page app mode) | The screens, in `web/` |
-| HTML5 / CSS3 (with Tailwind CSS) | Markup and styling |
-| NestJS | The backend, in `api/` |
-| REST API / JSON | How the web app and the API talk |
-| PostgreSQL (hosted on Supabase) | The database |
-| Prisma | Schema, migrations and typed queries |
-| JWT | Sign-in: the API signs a token and a guard checks it on every request |
-| Git / GitHub | Version control |
+| Technology                                      | Where it is used                                                      |
+| ----------------------------------------------- | --------------------------------------------------------------------- |
+| TypeScript                                      | The web app and the API                                               |
+| React + React Router (v7, single-page app mode) | The screens, in `web/`                                                |
+| HTML5 / CSS3 (with Tailwind CSS)                | Markup and styling                                                    |
+| NestJS                                          | The backend, in `api/`                                                |
+| REST API / JSON                                 | How the web app and the API talk                                      |
+| PostgreSQL (hosted on Supabase)                 | The database                                                          |
+| Prisma                                          | Schema, migrations and typed queries                                  |
+| JWT                                             | Sign-in: the API signs a token and a guard checks it on every request |
+| Git / GitHub                                    | Version control                                                       |
 
 Extras: Tailwind CSS, the Vercel AI SDK (with OpenRouter, so any model can be used), and Zod (validating input).
 
@@ -36,17 +40,17 @@ Permissions are checked **on the server**: every API route needs a valid token, 
 
 Open the home page, pick a role card, and sign in with that role's email and password. (An account from another role is turned away with a warning.)
 
-| Role | Email | Password |
-|---|---|---|
-| General manager (all locations) | `gm@mavera.test` | `Gm-demo-2026` |
-| Waiter (Kadıköy) | `waiter@mavera.test` | `Waiter-demo-2026` |
-| Kitchen / expo (Kadıköy) | `kitchen@mavera.test` | `Kitchen-demo-2026` |
-| Cleaner (Kadıköy) | `cleaner@mavera.test` | `Cleaner-demo-2026` |
-| Store manager (Kadıköy) | `store@mavera.test` | `Store-demo-2026` |
-| Store manager (Nişantaşı) | `store.nisantasi@mavera.test` | `Store-nisantasi-2026` |
-| Store manager (Bebek) | `store.bebek@mavera.test` | `Store-bebek-2026` |
-| Store manager (Beşiktaş) | `store.besiktas@mavera.test` | `Store-besiktas-2026` |
-| Store manager (Üsküdar) | `store.uskudar@mavera.test` | `Store-uskudar-2026` |
+| Role                            | Email                         | Password               |
+| ------------------------------- | ----------------------------- | ---------------------- |
+| General manager (all locations) | `gm@mavera.test`              | `Gm-demo-2026`         |
+| Waiter (Kadıköy)                | `waiter@mavera.test`          | `Waiter-demo-2026`     |
+| Kitchen / expo (Kadıköy)        | `kitchen@mavera.test`         | `Kitchen-demo-2026`    |
+| Cleaner (Kadıköy)               | `cleaner@mavera.test`         | `Cleaner-demo-2026`    |
+| Store manager (Kadıköy)         | `store@mavera.test`           | `Store-demo-2026`      |
+| Store manager (Nişantaşı)       | `store.nisantasi@mavera.test` | `Store-nisantasi-2026` |
+| Store manager (Bebek)           | `store.bebek@mavera.test`     | `Store-bebek-2026`     |
+| Store manager (Beşiktaş)        | `store.besiktas@mavera.test`  | `Store-besiktas-2026`  |
+| Store manager (Üsküdar)         | `store.uskudar@mavera.test`   | `Store-uskudar-2026`   |
 
 These are throwaway demo accounts. They are defined in `api/src/seed.ts`, and re-running the seed puts everything back to this clean state.
 
@@ -101,43 +105,27 @@ Open <http://localhost:5173> and sign in with a demo account.
 
 `api/`
 
-| Command | What it does |
-|---|---|
-| `npm run start:dev` | API with auto-reload |
-| `npm run build` | Generate the Prisma client and compile |
-| `npm run db:migrate` | Create and apply a new migration after editing `prisma/schema.prisma` |
-| `npm run db:seed` | Wipe and refill the database with the demo data |
-| `npm run seed:data` | Regenerate the seed JSON (deterministic: it should not change) |
-| `npm run lint` · `npm test` | Lint · tests |
+| Command                     | What it does                                                          |
+| --------------------------- | --------------------------------------------------------------------- |
+| `npm run start:dev`         | API with auto-reload                                                  |
+| `npm run build`             | Generate the Prisma client and compile                                |
+| `npm run db:migrate`        | Create and apply a new migration after editing `prisma/schema.prisma` |
+| `npm run db:seed`           | Wipe and refill the database with the demo data                       |
+| `npm run seed:data`         | Regenerate the seed JSON (deterministic: it should not change)        |
+| `npm run lint` · `npm test` | Lint · tests                                                          |
 
 `web/`
 
-| Command | What it does |
-|---|---|
-| `npm run dev` | Dev server on port 5173 |
-| `npm run build` | Production build into `build/client` |
+| Command             | What it does                              |
+| ------------------- | ----------------------------------------- |
+| `npm run dev`       | Dev server on port 5173                   |
+| `npm run build`     | Production build into `build/client`      |
 | `npm run typecheck` | Generate route types, then run TypeScript |
-| `npm run lint` | ESLint, including accessibility rules |
+| `npm run lint`      | ESLint, including accessibility rules     |
 
 ## Deploying
 
-The web app is plain static files (Vercel), the API is a Node service (Render), and the database stays on Supabase. Deploy the API first, because the web app needs its address.
-
-**1. API on Render**
-
-1. In Render choose **New → Blueprint** and select this repository. It reads `render.yaml`.
-2. Fill in the values it asks for: `DATABASE_URL` (the pooled Supabase string), `OPENROUTER_API_KEY`, and `WEB_ORIGIN` (put `http://localhost:5173` for now). `JWT_SECRET` is generated for you.
-3. When it is live, note the address, for example `https://mavera-api.onrender.com`. Opening it should say "Hello World!".
-
-**2. Web app on Vercel**
-
-1. In Vercel choose **Add New → Project**, import this repository, and set the **Root Directory** to `web`. `vercel.json` sets the build command, output folder and the single-page-app rewrite.
-2. Add the environment variable `VITE_API_URL` with the Render address.
-3. Deploy, and note the Vercel address.
-
-**3. Let the web app call the API**
-
-In Render, change `WEB_ORIGIN` to the Vercel address (no trailing slash) and let the API redeploy. Without this the browser blocks the calls.
+The web app is plain static files (Vercel), the API is a Node service (Render), and the database stays on Supabase.
 
 ## Project layout
 
@@ -163,12 +151,3 @@ On the GM overview, **Generate briefing** asks a model to read the week's number
 ## Screen sizes
 
 Mavera's work screens are for tablets and desktops. They are designed from 1024px up, and below that they show a designed message instead of a broken layout. The landing and sign-in pages adapt down to phone width.
-
-## Known limitations
-
-- **Free hosting:** the API sleeps when idle, so the first request can take about a minute. The free AI model can be slow or rate-limited at busy times; the briefing then shows its error state, and "Try again" works.
-- **Sign-in:** the token is kept in the browser's local storage (simple, but readable by scripts on the page). There is no password reset or email verification.
-- **No automated tests** and no formal accessibility audit yet. The screens use real buttons and links, labelled fields, visible focus and text next to every colour, but they have not been audited.
-- **History is summarised:** sales are stored as daily totals, not individual orders, and stock movements are weekly totals.
-- **Live updates** are polling every few seconds, not instant push.
-- Dense operational screens are not designed for phones.
